@@ -13,19 +13,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Авторизация
-Route::get('/', 'IndexController@index')->name('login');
-Route::get('/login', 'IndexController@index')->name('login');
+// Главная
+Route::get('/', 'AppController@run')->name('home');
 
-// Dashboard
-Route::group(['namespace' => 'Dashboard', 'prefix' => 'dashboard'], function () {
-    Route::get('/', 'IndexController@host')->name('dashboard');
+// Приборная панель
+Route::group(['prefix' => 'dashboard'], function () {
 
-    Route::get('/host', 'IndexController@host')->name('host');
-    Route::get('/site', 'IndexController@site')->name('site');
-    Route::get('/other', 'IndexController@other')->name('other');
-    Route::get('/report', 'IndexController@report')->name('report');
+    // Главная
+    Route::get('/', 'AppController@run')->name('dashboard');
+
+    // Хостинги
+    Route::get('/host', 'AppController@run')->name('dashboard.host');
+
+    // Сайты
+    Route::get('/site', 'AppController@run')->name('dashboard.site');
+
+    // Сайты
+    Route::get('/other', 'AppController@run')->name('dashboard.other');
+
+    // Сайты
+    Route::get('/report', 'AppController@run')->name('dashboard.report');
+
 });
+
+
+
+
+//
+//Route::get('/login', 'IndexController@index')->name('login');
+
+
 
 
 //

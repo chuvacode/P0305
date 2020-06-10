@@ -4,7 +4,7 @@
 <!--            "Доступы": {-->
 <!--                "type": "category",-->
 <!--                "open": "true",-->
-<!--                "pages": ["Хостинги", "Сайты", "Другое"]-->
+<!--                "views": ["Хостинги", "Сайты", "Другое"]-->
 <!--            },-->
 <!--            "Хостинги": {-->
 <!--                "url": "http://127.0.0.1:8000/dashboard/host"-->
@@ -49,6 +49,10 @@
 </template>
 
 <script>
+    import route from "../route";
+
+    const axios = require('axios').default;
+
     export default {
         name: "Sidebar",
         data() {
@@ -59,9 +63,11 @@
             };
         },
         mounted() {
+
             if (localStorage.getItem('menu') == null) {
+                console.log(route('get-menu'));
                 axios
-                    .get('/api/get-menu')
+                    .get(route('get-menu'))
                     .then(response => {
                         this.menu = response.data;
                         localStorage.setItem('menu', JSON.stringify(this.menu));
