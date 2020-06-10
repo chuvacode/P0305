@@ -13,5 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UserSeeder::class);
          $this->call(AccessHost::class);
+         $this->call(AccessSite::class);
+         $this->call(Client::class);
+         $this->call(LinkSiteToHost::class);
     }
 }

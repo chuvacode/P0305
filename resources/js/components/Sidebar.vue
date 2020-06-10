@@ -1,24 +1,5 @@
 <template>
     <nav class="nav_sidebar" @click="checkCurrentPage" :class="{hide:!sideBarVisibility}">
-<!--        {-->
-<!--            "Доступы": {-->
-<!--                "type": "category",-->
-<!--                "open": "true",-->
-<!--                "views": ["Хостинги", "Сайты", "Другое"]-->
-<!--            },-->
-<!--            "Хостинги": {-->
-<!--                "url": "http://127.0.0.1:8000/dashboard/host"-->
-<!--            },-->
-<!--            "Сайты": {-->
-<!--                "url": "http://127.0.0.1:8000/dashboard/site"-->
-<!--            },-->
-<!--            "Другое": {-->
-<!--                "url": "http://127.0.0.1:8000/dashboard/other"-->
-<!--            },-->
-<!--            "Отчеты": {-->
-<!--                "url": "http://127.0.0.1:8000/dashboard/report",-->
-<!--            }-->
-<!--        }-->
         <ul>
             <!--Перебор родительских пунктов меню-->
             <li v-for="(item, key) in menu"
@@ -46,6 +27,7 @@
 
         <span class="item_menu close_sidebar" @click="toggleSideBar"><i class="ml-auto" :style="!sideBarVisibility ? 'transform: rotate(90deg);' : ''"></i></span>
     </nav>
+
 </template>
 
 <script>
@@ -77,24 +59,26 @@
             }
 
             // this.menu = {
-            //     'Доступы': {
-            //         'url': null,
-            //         'open': true,
-            //         'childs': {
-            //             'Хостинги': {
-            //                 'url': 'http://127.0.0.1:8000/dashboard/host'
-            //             },
-            //             'Сайты': {
-            //                 'url': 'http://127.0.0.1:8000/dashboard/site'
-            //             },
-            //             'Другое': {
-            //                 'url': 'http://127.0.0.1:8000/dashboard/other'
-            //             }
-            //         }
+            //     "Доступы": {
+            //         "type": "category",
+            //         "open": "true",
+            //         "views": ["Хостинги", "Сайты", "Другое"]
             //     },
-            //     'Отчеты': {
-            //         'url': 'http://127.0.0.1:8000/dashboard/report',
-            //         'childs': null
+            //     "Хостинги": {
+            //         "type": "sublink",
+            //         "url": "http://127.0.0.1:8000/dashboard/host"
+            //     },
+            //     "Сайты": {
+            //         "type": "sublink",
+            //         "url": "http://127.0.0.1:8000/dashboard/site"
+            //     },
+            //     "Другое": {
+            //         "type": "sublink",
+            //         "url": "http://127.0.0.1:8000/dashboard/other"
+            //     },
+            //     "Отчеты": {
+            //         "type": "page",
+            //         "url": "http://127.0.0.1:8000/dashboard/report",
             //     }
             // };
         },

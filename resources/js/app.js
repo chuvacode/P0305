@@ -3,6 +3,7 @@
 // Подключение vue и его инструментов
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+
 Vue.use(VueRouter);
 import router from "./router";
 import App from "./components/App";

@@ -34,7 +34,13 @@
                         </div>
                         </div>
                     </td>
-                    <td @mouseover="setCurrentCellHover(indexRow, indexCell)" @mouseleave="cellHoverIndex = null" ></td>
+                    <td style="position:relative;" @mouseover="setCurrentCellHover(indexRow, indexCell)" @mouseleave="cellHoverIndex = null" >
+                        <div v-if="false" class="context_menu" >
+                            <a href="#">Подробнее</a>
+                            <a href="#">Изменить</a>
+                            <a href="#">Удалить</a>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
