@@ -3,13 +3,15 @@
 // Подключение vue и его инструментов
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-
-Vue.use(VueRouter);
 import router from "./router";
+import Vuelidate from 'vuelidate'
 import App from "./components/App";
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
-// Vue.component('accesses-host', require('./components/HostTable').default);
-// Vue.component('sidebar', require('./components/Sidebar').default);
+Vue.use(Vuelidate);
+Vue.use(VueRouter);
+Vue.use(VueAxios, axios);
 
 const app = new Vue({
     el: '#app',

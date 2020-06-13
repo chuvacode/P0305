@@ -24,24 +24,24 @@ export default new VueRouter({
             component: () => import('./views/Accesses/AccessesHosts')
         },
         { // Таблица доступов: Сайты
-            path: route('dashboard.host'),
-            name: "dashboard.host",
+            path: route('dashboard.site'),
+            name: "dashboard.site",
             meta: {
                 layout: 'dashboard'
             },
             component: () => import('./views/Accesses/AccessesHosts')
         },
         { // Таблица доступов: Другое
-            path: route('dashboard.host'),
-            name: "dashboard.host",
+            path: route('dashboard.other'),
+            name: "dashboard.other",
             meta: {
                 layout: 'dashboard'
             },
             component: () => import('./views/Accesses/AccessesHosts')
         },
         { // Отчеты
-            path: route('dashboard.host'),
-            name: "dashboard.host",
+            path: route('dashboard.report'),
+            name: "dashboard.report",
             meta: {
                 layout: 'dashboard'
             },

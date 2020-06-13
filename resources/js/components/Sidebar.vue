@@ -1,39 +1,16 @@
 <template>
     <nav class="nav_sidebar" @click="checkCurrentPage" :class="{hide:!sideBarVisibility}">
-        <ul>
-            <!--Перебор родительских пунктов меню-->
-            <li v-for="(item, key) in menu"
-                :class="{item_menu_dropdown:isChilds(item),
-                         active:checkCurrentPage(item.url, item.childs),
-                         'item-open':isChilds(item) && item.open,
-                         'item-close':isChilds(item) && !item.open}"
-            >
-                <!--Если с дочерними элементами-->
-                <template v-if="isChilds(item)">
-                    <span class="item_menu" @click="toggleMenuItem(key)"><span>{{ key }}</span><i v-if="isChilds(item)" class="ml-auto icon_dropdown"></i></span>
-                    <ul v-if="item.open">
-                        <li v-for="(itemChild, keyChild) in item.childs" :class="{active:checkCurrentPage(itemChild.url)}">
-                            <span class="item_menu"><span><a :href="itemChild.url">{{ keyChild }}</a></span></span>
-                        </li>
-                    </ul>
-                </template>
-
-                <!--Одиночный элемент-->
-                <template v-else="">
-                    <span class="item_menu"><a :href="item.url">{{ key }}</a></span>
-                </template>
-            </li>
-        </ul>
-
-        <span class="item_menu close_sidebar" @click="toggleSideBar"><i class="ml-auto" :style="!sideBarVisibility ? 'transform: rotate(90deg);' : ''"></i></span>
+        <div class="nav_sidebar_menu">
+            <ul>
+                  <item-menu v-for="(body, title) in getMenuItems()" :title="title" :body="body" :menu="menu"></item-menu>
+            </ul>
+        </div>
     </nav>
-
 </template>
 
 <script>
     import route from "../route";
-
-    const axios = require('axios').default;
+    import ItemMenu from "./ItemMenu";
 
     export default {
         name: "Sidebar",
@@ -45,53 +22,54 @@
             };
         },
         mounted() {
-
-            if (localStorage.getItem('menu') == null) {
-                console.log(route('get-menu'));
-                axios
-                    .get(route('get-menu'))
-                    .then(response => {
-                        this.menu = response.data;
-                        localStorage.setItem('menu', JSON.stringify(this.menu));
-                    });
-            } else {
-                this.menu = JSON.parse(localStorage.getItem('menu'));
-            }
-
-            // this.menu = {
-            //     "Доступы": {
-            //         "type": "category",
-            //         "open": "true",
-            //         "views": ["Хостинги", "Сайты", "Другое"]
-            //     },
-            //     "Хостинги": {
-            //         "type": "sublink",
-            //         "url": "http://127.0.0.1:8000/dashboard/host"
-            //     },
-            //     "Сайты": {
-            //         "type": "sublink",
-            //         "url": "http://127.0.0.1:8000/dashboard/site"
-            //     },
-            //     "Другое": {
-            //         "type": "sublink",
-            //         "url": "http://127.0.0.1:8000/dashboard/other"
-            //     },
-            //     "Отчеты": {
-            //         "type": "page",
-            //         "url": "http://127.0.0.1:8000/dashboard/report",
-            //     }
-            // };
-        },
-        computed: {
-            // menu: function () {
-            //     let menu;
-            //
-            //
-            //     console.log(menu);
-            //     return menu;
+            // if (localStorage.getItem('menu') == null) {
+            //     this.axios
+            //         .get(route('get-menu'))
+            //         .then(response => {
+            //             this.menu = response.data;
+            //             localStorage.setItem('menu', JSON.stringify(this.menu));
+            //         });
+            // } else {
+            //     this.menu = JSON.parse(localStorage.getItem('menu'));
             // }
+
+            this.menu = {
+                "Доступы": {
+                    "type": "category",
+                    "open": "true",
+                    "children": ["Хостинги", "Сайты", "Другое"],
+                    "url": "#"
+                },
+                "Хостинги": {
+                    "type": "child",
+                    "url": route('dashboard.host')
+                },
+                "Сайты": {
+                    "type": "child",
+                    "url": route('dashboard.site')
+                },
+                "Другое": {
+                    "type": "child",
+                    "url": route('dashboard.other')
+                },
+                "Отчеты": {
+                    "type": "page",
+                    "url": route('dashboard.report')
+                }
+            };
         },
+        computed: { },
         methods: {
+            getMenuItems() {
+                let items = {};
+
+                for (let title in this.menu) {
+                    if (this.menu[title]['type'] != "child") {
+                        items[title] = this.menu[title];
+                    }
+                }
+                return items;
+            },
             setActiveMenuItem(key) {
                 this.activeMenuItem = key;
             },
@@ -113,9 +91,13 @@
             toggleMenuItem(key) {
                 this.menu[key].open = !this.menu[key].open;
             },
-            toggleSideBar() {
+            toggleSidebar() {
                 this.sideBarVisibility = !this.sideBarVisibility;
+                this.$emit('close', this.sideBarVisibility ? 280 : 80);
             }
+        },
+        components: {
+            ItemMenu
         }
     }
 </script>
