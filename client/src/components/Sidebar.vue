@@ -21,7 +21,7 @@ export default {
       sideBarVisibility: true
     }
   },
-  mounted () {
+  created () {
     // if (localStorage.getItem('menu') == null) {
     //     this.axios
     //         .get(route('get-menu'))
@@ -32,12 +32,11 @@ export default {
     // } else {
     //     this.menu = JSON.parse(localStorage.getItem('menu'));
     // }
-
     this.menu = {
       Доступы: {
         type: 'category',
         open: 'true',
-        children: ['Хостинги', 'Сайты', 'Другое'],
+        children: ['Хостинги', 'Сайты'],
         url: '#'
       },
       Хостинги: {
@@ -47,15 +46,18 @@ export default {
       Сайты: {
         type: 'child',
         url: route('dashboard.site')
-      },
-      Другое: {
-        type: 'child',
-        url: route('dashboard.other')
-      },
-      Отчеты: {
-        type: 'page',
-        url: route('dashboard.report')
       }
+
+      // },
+      // Другое: {
+      //   type: 'child',
+      //   url: route('dashboard.other')
+      // }
+      // },
+      // Отчеты: {
+      //   type: 'page',
+      //   url: route('dashboard.report')
+      // }
     }
   },
   computed: { },
@@ -68,6 +70,7 @@ export default {
           items[title] = this.menu[title]
         }
       }
+
       return items
     },
     setActiveMenuItem (key) {

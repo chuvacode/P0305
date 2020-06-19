@@ -119,8 +119,14 @@ class SitesController extends Controller
      * @param  \App\Models\AccessSite  $accessSite
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AccessSite $accessSite)
+    public function destroy($id)
     {
-        //
+        if (!$host = AccessSite::find($id))
+            return $this->responseJSON(404, 'Not found');
+
+        if ($host->delete())
+            return $this->responseJSON(204, 'Success destroy');
+
+        return $this->responseJSON(501, 'Not implemented');
     }
 }

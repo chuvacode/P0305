@@ -174,7 +174,7 @@
         </div>
       </transition>
       <transition name="overlay">
-        <div v-if="isVisibility" @click="handleClose" class="overlay_bg"></div>
+        <div v-if="isVisibility" @click="clearForm" class="overlay_bg"></div> <!--handleClose-->
       </transition>
     </div>
   </transition>
@@ -278,6 +278,7 @@ export default {
       this.db_name = ''
       this.db_login = ''
       this.db_password = ''
+      this.$v.$reset()
     }
   },
 

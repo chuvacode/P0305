@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import SiteTable from '@/components/SiteTable'
+import SiteTable from '@/components/Tables/Site/SiteTable'
 import Search from '@/components/Search'
 import FormAddSiteModal from '@/components/Modals/FormAddSite'
 

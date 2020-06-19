@@ -13,27 +13,27 @@
         <th></th>
         </thead>
         <tbody>
-        <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id" @update="getDataTable" @confirm="handleConfirm"
+        <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id" @update="getDataTable" @confirmDestroy="handleConfirm"
              :confirmStatus="confirmStatus"></row>
         </tbody>
       </table>
     </div>
 
     <confirm-form :isVisibility="isVisibilityConfirmForm" @close="handleCloseFormConfirmation"
-                  @confirm="handleConfirmResponse(true)" @refute="handleConfirmResponse(false)"></confirm-form>
+                  @confirmDestroy="handleConfirmResponse(true)" @refuteDestroy="handleConfirmResponse(false)"></confirm-form>
   </div>
 </template>
 
 <script>
 import route from '@/router/route'
-import Row from './Table/Row'
-import ConfirmForm from './Modals/ConfirmForm'
+import Row from '@/components/Tables/Site/SiteRow'
+import ConfirmForm from '@/components/Modals/ConfirmForm'
 
 export default {
-  name: 'HostTable',
+  name: 'SiteTable',
   data: function () {
     return {
-      dataTableHosts: [], // Данные из таблицы
+      dataTableSites: [], // Данные из таблицы
       activeCell: null, // DOM активного поля
       activeCellIndex: null, // Индекс активного поля
       cellHoverIndex: null, // Индекс поля, на котором указатель
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     Destroy (id) {
-      this.axios.delete(route('host.destroy', [id]))
+      this.axios.delete(route('site.destroy', [id]))
         .then(response => {
           this.getDataTable()
         })
@@ -79,9 +79,9 @@ export default {
       this.isVisibilityConfirmForm = true
     },
     getDataTable () {
-      this.axios.get(route('host.index'))
+      this.axios.get(route('site.index'))
         .then(response => {
-          this.dataTableHosts = response.data.availables
+          this.dataTableSites = response.data.data.availables
         })
     },
     isCurrentCellHover (row, column) {
@@ -96,14 +96,13 @@ export default {
       const newArray = []
 
       const searchQ = this.search.toLowerCase()
-
-      this.dataTableHosts.filter((item) => {
+      this.dataTableSites.filter((item) => {
         const currentRow = item
         // const searchString = currentRow.name + currentRow.ftp_server + currentRow.host_login + currentRow.comment + currentRow.ftp_login
 
         if ((currentRow.title && currentRow.title.toLowerCase().indexOf(searchQ) !== -1) ||
             (currentRow.ftp_server && currentRow.ftp_server.toLowerCase().indexOf(searchQ) !== -1) ||
-            (currentRow.host_login && currentRow.host_login.toLowerCase().indexOf(searchQ) !== -1) ||
+            (currentRow.admin_panel_login && currentRow.admin_panel_password.toLowerCase().indexOf(searchQ) !== -1) ||
             (currentRow.comment && currentRow.comment.toLowerCase().indexOf(searchQ) !== -1) ||
             (currentRow.ftp_login && currentRow.ftp_login.toLowerCase().indexOf(searchQ) !== -1)) {
           newArray.push(currentRow)

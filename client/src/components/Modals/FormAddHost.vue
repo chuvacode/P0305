@@ -127,7 +127,6 @@ export default {
     'isVisibility'
   ],
   mounted () {
-    console.log(route('dashboard.host.show'))
   },
   methods: {
     handleClose () {

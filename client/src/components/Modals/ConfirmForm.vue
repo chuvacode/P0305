@@ -30,10 +30,10 @@ export default {
   ],
   methods: {
     handleConfirm () {
-      this.$emit('confirm')
+      this.$emit('confirmDestroy')
     },
     handleRefute () {
-      this.$emit('refute')
+      this.$emit('refuteDestroy')
     },
     handleClose () {
       this.$emit('close')

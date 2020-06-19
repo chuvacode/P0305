@@ -5,9 +5,7 @@
       <div class="right ml-auto">
         <a id="go_back" class="button-1 ml-30" :href="back"
         >Вернуться</a>
-        <a id="add_new_host" class="button-1 ml-30" href="/home"
-           @click.prevent="isVisibilityFormAddHost = !isVisibilityFormAddHost"
-        >Изменить</a>
+        <a id="host_edit" class="button-1 ml-30" :href="url_edit">Изменить</a>
       </div>
     </div>
     <div class="content">
@@ -58,6 +56,12 @@
             </div>
           </div>
         </div>
+        <div class="w-100"></div>
+        <div class="form_control_textarea_and_label w-100" style="height: 100%;">
+          <label for="textarea_comment">Комментарий:</label>
+          <textarea class="control_textarea w-100" id="textarea_comment"
+                    v-model="host.comment" type="text" disabled></textarea>
+        </div>
       </div>
     </div>
   </div>
@@ -83,8 +87,8 @@ export default {
   methods: {
     getHost () {
       this.axios.get(route('host.show', [this.id]))
-        .then(responce => {
-          this.host = responce.data.data.content
+        .then(response => {
+          this.host = response.data.data.content
           this.getSreenshot()
         })
         // eslint-disable-next-line handle-callback-err
@@ -94,8 +98,8 @@ export default {
     },
     getSreenshot () {
       this.axios.get(route('api.screenshot', [this.host.title]))
-        .then(responce => {
-          this.screenshot = responce.data.data.screenshot
+        .then(response => {
+          this.screenshot = response.data.data.screenshot
         })
         // eslint-disable-next-line handle-callback-err
         .catch(error => {})
@@ -104,6 +108,9 @@ export default {
   computed: {
     back () {
       return route('dashboard.host')
+    },
+    url_edit () {
+      return route('dashboard.host.edit', [this.id])
     }
   },
   components: {
@@ -112,5 +119,10 @@ export default {
 </script>
 
 <style scoped>
-
+  .list_accesses {
+    max-width: 600px;
+  }
+  #textarea_comment {
+    min-height: 140px;
+  }
 </style>

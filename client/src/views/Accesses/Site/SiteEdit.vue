@@ -1,33 +1,236 @@
 <template>
-
-    <div class="container-fluid container_access w-100">
-        <div class="panel_line">
-            <h3>Сайты</h3>
-            <div class="right ml-auto">
-                <div class="search">
-                    <input v-model="search" type="text">
-                    <a href="#"></a>
-                </div>
-                <a id="add_new_host" class="button-1 ml-30" href="/home">Добавить</a>
-            </div>
-        </div>
-
-        <accesses-host :search="search"></accesses-host>
+  <div class="container-fluid container_access w-100">
+    <div class="panel_line">
+      <h3>Редактирование: {{ site.title + ' #' + id }}</h3>
+      <div class="right ml-auto">
+        <a id="go_back" class="button-1 ml-30" :href="back"
+        >Вернуться</a>
+        <a id="add_new_site" class="button-1 ml-30" href="/home"
+           @click.prevent="siteSave"
+        >Сохранить</a>
+      </div>
     </div>
+    <div class="content">
+      <form action="" ref="form_add_site" @submit.prevent="" class="list_accesses">
+        <div class="form_control_group_input">
+          <div class="form_control_input_and_label" :class="{'error': $v.title.$error}">
+            <label for="input_title">Наименование:</label>
+            <div class="form_control_container_input">
+              <input class="control_input" :class="{'error': $v.title.$error}" id="input_title" type="text"
+                     v-model="title" @change="$v.title.$touch()">
+              <div v-if="!$v.title.required" class="error_notice"
+                   tooltip="Это поле обязательно для заполнения"></div>
+            </div>
+          </div>
+          <div class="form_control_input_and_label" :class="{'error': $v.link_sign_in.$error}">
+            <label for="input_title">Страница авторизации:</label>
+            <div class="form_control_container_input">
+              <input class="control_input" :class="{'error': $v.link_sign_in.$error}" id="input_link_sign_in" type="text"  list="names"
+                     v-model="link_sign_in" @change="$v.link_sign_in.$touch()">
+              <datalist id="names">
+                <option :value="'http://' + title" />
+                <option :value="'https://' + title" />
+              </datalist>
+              <div v-if="!$v.link_sign_in.required" class="error_notice"
+                   tooltip="Это поле обязательно для заполнения"></div>
+              <div v-if="!$v.link_sign_in.url" class="error_notice"
+                   tooltip="Значение не является ссылкой"></div>
+            </div>
+          </div>
+        </div>
+        <div class="w-100"></div>
+        <div class="d-flex">
+          <div class="form_control_group_input mr-50">
+            <label>Доступ к хостингу</label>
+            <div class="form_control_input_and_label" :class="{'error': $v.site_login.$error}">
+              <label for="input_site_login">Логин:</label>
+              <div class="form_control_container_input">
+                <input class="control_input" :class="{'error': $v.site_login.$error}" id="input_site_login"
+                       type="text" v-model="site_login" @change="$v.site_login.$touch()">
+                <div v-if="!$v.site_login.required" class="error_notice"
+                     tooltip="Это поле обязательно для заполнения"></div>
+              </div>
+            </div>
+            <div class="form_control_input_and_label" :class="{'error': $v.site_password.$error}">
+              <label for="input_site_password">Пароль:</label>
+              <div class="form_control_container_input">
+                <input class="control_input" :class="{'error': $v.site_password.$error}" id="input_site_password"
+                       type="text" v-model="site_password" @change="$v.site_password.$touch()">
+                <div v-if="!$v.site_password.required" class="error_notice"
+                     tooltip="Это поле обязательно для заполнения"></div>
+              </div>
+            </div>
+          </div>
+          <div class="form_control_group_input">
+            <label>Доступ к FTP</label>
+            <div class="form_control_input_and_label" :class="{'error': $v.ftp_server.$error}">
+              <label for="input_ftp_server">Сервер:</label>
+              <div class="form_control_container_input">
+                <input class="control_input" :class="{'error': $v.ftp_server.$error}" id="input_ftp_server"
+                       v-model="ftp_server" type="text" @change="$v.ftp_server.$touch()">
+                <div v-if="!$v.ftp_server.required" class="error_notice"
+                     tooltip="Все поля доступа к FTP должны быть заполнены или пусты" tooltip-2=""></div>
+              </div>
+            </div>
+            <div class="form_control_input_and_label" :class="{'error': $v.ftp_login.$error}">
+              <label for="input_ftp_login">Логин:</label>
+              <div class="form_control_container_input">
+                <input class="control_input" :class="{'error': $v.ftp_login.$error}" id="input_ftp_login"
+                       v-model="ftp_login" type="text" @change="$v.ftp_login.$touch()">
+                <div v-if="!$v.ftp_login.required" class="error_notice"
+                     tooltip="Все поля доступа к FTP должны быть заполнены или пусты" tooltip-2=""></div>
+              </div>
+            </div>
+            <div class="form_control_input_and_label" :class="{'error': $v.ftp_password.$error}">
+              <label for="input_ftp_password">Пароль:</label>
+              <div class="form_control_container_input">
+                <input class="control_input" :class="{'error': $v.ftp_password.$error}" id="input_ftp_password"
+                       v-model="ftp_password" type="text" @change="$v.ftp_password.$touch()">
+                <div v-if="!$v.ftp_password.required" class="error_notice"
+                     tooltip="Все поля доступа к FTP должны быть заполнены или пусты" tooltip-2=""></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-100"></div>
+        <div class="form_control_textarea_and_label w-100" style="height: 100%;">
+          <label for="textarea_comment">Комментарий:</label>
+          <textarea class="control_textarea w-100" id="textarea_comment"
+                    v-model="comment" type="text"></textarea>
+        </div>
+      </form>
+    </div>
+
+    <toast></toast>
+
+  </div>
 </template>
 
 <script>
+import route from '@/router/route'
+import Toast from '@/utils/toast/toast'
+import { required, requiredIf, url } from 'vuelidate/lib/validators'
+
 export default {
-  name: 'AccesseSites',
-  data: function () {
-    return {
-      search: ''
+  name: 'SiteEdit',
+  data: () => ({
+    id: null,
+    site: {
+      title: ''
+    },
+    title: '',
+    link_sign_in: '',
+    site_login: '',
+    site_password: '',
+    ftp_server: '',
+    ftp_login: '',
+    ftp_password: '',
+    comment: '',
+    form_status: null
+  }),
+  mounted () {
+    this.id = this.$route.params.id
+    this.getSite()
+  },
+  methods: {
+    getSite () {
+      this.axios.get(route('site.edit', this.id))
+        .then(response => {
+          this.site = response.data.data.content
+
+          this.title = this.site.title
+          this.link_sign_in = this.site.link_sign_in
+          this.site_login = this.site.site_login
+          this.site_password = this.site.site_password
+          this.ftp_server = this.site.ftp_server
+          this.ftp_login = this.site.ftp_login
+          this.ftp_password = this.site.ftp_password
+          this.comment = this.site.comment
+        })
+    },
+    siteSave () {
+      this.$v.$touch()
+
+      if (this.$v.$invalid) {
+        this.form_status = 'ERROR'
+        return
+      }
+
+      this.form_status = 'PENDING'
+      const formData = new FormData()
+
+      if (this.title !== this.site.title) formData.append('title', this.title)
+      if (this.title !== this.site.link_sign_in) formData.append('link_sign_in', this.link_sign_in)
+      if (this.title !== this.site.ftp_login) formData.append('ftp_login', this.ftp_login)
+      if (this.title !== this.site.ftp_password) formData.append('ftp_password', this.ftp_password)
+      if (this.title !== this.site.ftp_server) formData.append('ftp_server', this.ftp_server)
+      if (this.title !== this.site.site_login) formData.append('site_login', this.site_login)
+      if (this.title !== this.site.site_password) formData.append('site_password', this.site_password)
+      if (this.title !== this.site.comment) formData.append('comment', this.comment)
+      formData.append('_method', 'PATCH')
+
+      this.axios.post(route('site.update', [this.id]), formData)
+        .then(response => {
+          this.$router.push({ name: 'dashboard.site.show', params: { id: this.id } })
+        })
+    },
+    ifNotFull () {
+      let check = 0
+
+      check += this.ftp_server ? 1 : 0
+      check += this.ftp_login ? 1 : 0
+      check += this.ftp_password ? 1 : 0
+
+      return !(check === 0 || check === 3)
     }
   },
-  components: {}
+  computed: {
+    back () {
+      return route('dashboard.site')
+    }
+
+  },
+  validations: {
+    title: {
+      required
+    },
+    site_login: {
+      required
+    },
+    site_password: {
+      required
+    },
+    ftp_server: {
+      required: requiredIf(function () {
+        return this.ifNotFull()
+      })
+    },
+    ftp_login: {
+      required: requiredIf(function () {
+        return this.ifNotFull()
+      })
+    },
+    ftp_password: {
+      required: requiredIf(function () {
+        return this.ifNotFull()
+      })
+    },
+    link_sign_in: {
+      required,
+      url
+    }
+  },
+  components: {
+    Toast
+  }
 }
 </script>
 
 <style scoped>
-
+  .list_accesses {
+    max-width: 600px;
+  }
+  #textarea_comment {
+    min-height: 140px;
+  }
 </style>

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import HostTable from '@/components/HostTable'
+import HostTable from '@/components/Tables/Host/HostTable'
 import Search from '@/components/Search'
 import FormAddHostModal from '@/components/Modals/FormAddHost'
 

@@ -13,17 +13,17 @@
 </template>
 
 <script>
-import Cell from '@/components/Table/Cell'
+import Cell from '@/components/Tables/Cell'
 import route from '@/router/route'
 
 export default {
-  name: 'Row',
+  name: 'HostRow',
   data: () => ({
     isContextVisibility: false
   }),
   computed: {
-    routeShow () { return route('dashboard.site.show', [this.row.id]) },
-    routeEdit () { return route('dashboard.site.edit', [this.row.id]) }
+    routeShow () { return route('dashboard.host.show', [this.row.id]) },
+    routeEdit () { return route('dashboard.host.edit', [this.row.id]) }
   },
   props: [
     'row'
@@ -41,9 +41,9 @@ export default {
     },
     filteredCells (row) {
       return {
-        title: row.title,
-        admin_panel_login: row.admin_panel_login,
-        admin_panel_password: row.admin_panel_password,
+        name: row.title,
+        host_login: row.host_login,
+        host_password: row.host_password,
         ftp_server: row.ftp_server,
         ftp_login: row.ftp_login,
         ftp_password: row.ftp_password,

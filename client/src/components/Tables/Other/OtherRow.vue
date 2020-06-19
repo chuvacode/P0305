@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import Cell from '@/components/Table/Cell'
+import Cell from '@/components/Tables/Cell'
 import route from '@/router/route'
 
 export default {
-  name: 'Row',
+  name: 'OtherRow',
   data: () => ({
     isContextVisibility: false
   }),

@@ -20,20 +20,20 @@
     </div>
 
     <confirm-form :isVisibility="isVisibilityConfirmForm" @close="handleCloseFormConfirmation"
-                  @confirm="handleConfirmResponse(true)" @refute="handleConfirmResponse(false)"></confirm-form>
+                  @confirmDestroy="handleConfirmResponse(true)" @refuteDestroy="handleConfirmResponse(false)"></confirm-form>
   </div>
 </template>
 
 <script>
 import route from '@/router/route'
-import Row from './Table/Site/Row'
-import ConfirmForm from './Modals/ConfirmForm'
+import Row from '@/components/Tables/Host/HostRow'
+import ConfirmForm from '@/components/Modals/ConfirmForm'
 
 export default {
-  name: 'SiteTable',
+  name: 'HostTable',
   data: function () {
     return {
-      dataTableSites: [], // Данные из таблицы
+      dataTableHosts: [], // Данные из таблицы
       activeCell: null, // DOM активного поля
       activeCellIndex: null, // Индекс активного поля
       cellHoverIndex: null, // Индекс поля, на котором указатель
@@ -79,9 +79,9 @@ export default {
       this.isVisibilityConfirmForm = true
     },
     getDataTable () {
-      this.axios.get(route('site.index'))
+      this.axios.get(route('host.index'))
         .then(response => {
-          this.dataTableSites = response.data.data.availables
+          this.dataTableHosts = response.data.availables
         })
     },
     isCurrentCellHover (row, column) {
@@ -96,13 +96,14 @@ export default {
       const newArray = []
 
       const searchQ = this.search.toLowerCase()
-      this.dataTableSites.filter((item) => {
+
+      this.dataTableHosts.filter((item) => {
         const currentRow = item
         // const searchString = currentRow.name + currentRow.ftp_server + currentRow.host_login + currentRow.comment + currentRow.ftp_login
 
         if ((currentRow.title && currentRow.title.toLowerCase().indexOf(searchQ) !== -1) ||
             (currentRow.ftp_server && currentRow.ftp_server.toLowerCase().indexOf(searchQ) !== -1) ||
-            (currentRow.admin_panel_login && currentRow.admin_panel_password.toLowerCase().indexOf(searchQ) !== -1) ||
+            (currentRow.host_login && currentRow.host_login.toLowerCase().indexOf(searchQ) !== -1) ||
             (currentRow.comment && currentRow.comment.toLowerCase().indexOf(searchQ) !== -1) ||
             (currentRow.ftp_login && currentRow.ftp_login.toLowerCase().indexOf(searchQ) !== -1)) {
           newArray.push(currentRow)
