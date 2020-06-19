@@ -22,46 +22,58 @@
                    tooltip="Это поле обязательно для заполнения"></div>
             </div>
           </div>
-          <div class="form_control_input_and_label" :class="{'error': $v.link_sign_in.$error}">
-            <label for="input_title">Страница авторизации:</label>
+          <div class="form_control_input_and_label" :class="{'error': $v.site_url.$error}">
+            <label for="input_title">Ссылка на сайт:</label>
             <div class="form_control_container_input">
-              <input class="control_input" :class="{'error': $v.link_sign_in.$error}" id="input_link_sign_in" type="text"  list="names"
-                     v-model="link_sign_in" @change="$v.link_sign_in.$touch()">
+              <input class="control_input" :class="{'error': $v.site_url.$error}" id="site_url" type="text"
+                     v-model="site_url" @change="$v.site_url.$touch()">
+              <div v-if="!$v.site_url.required" class="error_notice"
+                   tooltip="Это поле обязательно для заполнения"></div>
+              <div v-if="!$v.site_url.url" class="error_notice"
+                   tooltip="Значение не является ссылкой"></div>
+            </div>
+          </div>
+          <div class="form_control_input_and_label" :class="{'error': $v.admin_panel_url.$error}">
+            <label for="input_title">Страница админ-панели:</label>
+            <div class="form_control_container_input">
+              <input class="control_input" :class="{'error': $v.admin_panel_url.$error}" id="input_admin_panel_url" type="text"  list="names"
+                     v-model="admin_panel_url" @change="$v.admin_panel_url.$touch()">
               <datalist id="names">
                 <option :value="'http://' + title" />
                 <option :value="'https://' + title" />
               </datalist>
-              <div v-if="!$v.link_sign_in.required" class="error_notice"
+              <div v-if="!$v.admin_panel_url.required" class="error_notice"
                    tooltip="Это поле обязательно для заполнения"></div>
-              <div v-if="!$v.link_sign_in.url" class="error_notice"
+              <div v-if="!$v.admin_panel_url.url" class="error_notice"
                    tooltip="Значение не является ссылкой"></div>
             </div>
           </div>
+
         </div>
         <div class="w-100"></div>
         <div class="d-flex">
           <div class="form_control_group_input mr-50">
             <label>Доступ к хостингу</label>
-            <div class="form_control_input_and_label" :class="{'error': $v.site_login.$error}">
-              <label for="input_site_login">Логин:</label>
+            <div class="form_control_input_and_label" :class="{'error': $v.admin_panel_login.$error}">
+              <label for="input_admin_panel_login">Логин:</label>
               <div class="form_control_container_input">
-                <input class="control_input" :class="{'error': $v.site_login.$error}" id="input_site_login"
-                       type="text" v-model="site_login" @change="$v.site_login.$touch()">
-                <div v-if="!$v.site_login.required" class="error_notice"
+                <input class="control_input" :class="{'error': $v.admin_panel_login.$error}" id="input_admin_panel_login"
+                       type="text" v-model="admin_panel_login" @change="$v.admin_panel_login.$touch()">
+                <div v-if="!$v.admin_panel_login.required" class="error_notice"
                      tooltip="Это поле обязательно для заполнения"></div>
               </div>
             </div>
-            <div class="form_control_input_and_label" :class="{'error': $v.site_password.$error}">
-              <label for="input_site_password">Пароль:</label>
+            <div class="form_control_input_and_label" :class="{'error': $v.admin_panel_password.$error}">
+              <label for="input_admin_panel_password">Пароль:</label>
               <div class="form_control_container_input">
-                <input class="control_input" :class="{'error': $v.site_password.$error}" id="input_site_password"
-                       type="text" v-model="site_password" @change="$v.site_password.$touch()">
-                <div v-if="!$v.site_password.required" class="error_notice"
+                <input class="control_input" :class="{'error': $v.admin_panel_password.$error}" id="input_admin_panel_password"
+                       type="text" v-model="admin_panel_password" @change="$v.admin_panel_password.$touch()">
+                <div v-if="!$v.admin_panel_password.required" class="error_notice"
                      tooltip="Это поле обязательно для заполнения"></div>
               </div>
             </div>
           </div>
-          <div class="form_control_group_input">
+          <div class="form_control_group_input mr-50">
             <label>Доступ к FTP</label>
             <div class="form_control_input_and_label" :class="{'error': $v.ftp_server.$error}">
               <label for="input_ftp_server">Сервер:</label>
@@ -88,6 +100,45 @@
                        v-model="ftp_password" type="text" @change="$v.ftp_password.$touch()">
                 <div v-if="!$v.ftp_password.required" class="error_notice"
                      tooltip="Все поля доступа к FTP должны быть заполнены или пусты" tooltip-2=""></div>
+              </div>
+            </div>
+          </div>
+          <div class="form_control_group_input">
+            <label>Доступ к БД</label>
+            <div class="form_control_input_and_label" :class="{'error': $v.db_server.$error}">
+              <label for="input_db_server">Сервер:</label>
+              <div class="form_control_container_input">
+                <input class="control_input" :class="{'error': $v.db_server.$error}" id="input_db_server"
+                       v-model="db_server" type="text" @change="$v.db_server.$touch()">
+                <div v-if="!$v.db_server.required" class="error_notice"
+                     tooltip="Все поля доступа к БД должны быть заполнены или пусты" tooltip-2=""></div>
+              </div>
+            </div>
+            <div class="form_control_input_and_label" :class="{'error': $v.db_name.$error}">
+              <label for="input_db_name">Наиименование:</label>
+              <div class="form_control_container_input">
+                <input class="control_input" :class="{'error': $v.db_name.$error}" id="input_db_name"
+                       v-model="db_name" type="text" @change="$v.db_name.$touch()">
+                <div v-if="!$v.db_name.required" class="error_notice"
+                     tooltip="Все поля доступа к БД должны быть заполнены или пусты" tooltip-2=""></div>
+              </div>
+            </div>
+            <div class="form_control_input_and_label" :class="{'error': $v.db_login.$error}">
+              <label for="input_db_login">Логин:</label>
+              <div class="form_control_container_input">
+                <input class="control_input" :class="{'error': $v.db_login.$error}" id="input_db_login"
+                       v-model="db_login" type="text" @change="$v.db_login.$touch()">
+                <div v-if="!$v.db_login.required" class="error_notice"
+                     tooltip="Все поля доступа к БД должны быть заполнены или пусты" tooltip-2=""></div>
+              </div>
+            </div>
+            <div class="form_control_input_and_label" :class="{'error': $v.db_password.$error}">
+              <label for="input_db_password">Пароль:</label>
+              <div class="form_control_container_input">
+                <input class="control_input" :class="{'error': $v.db_password.$error}" id="input_db_password"
+                       v-model="db_password" type="text" @change="$v.db_password.$touch()">
+                <div v-if="!$v.db_password.required" class="error_notice"
+                     tooltip="Все поля доступа к БД должны быть заполнены или пусты" tooltip-2=""></div>
               </div>
             </div>
           </div>
@@ -119,12 +170,17 @@ export default {
       title: ''
     },
     title: '',
-    link_sign_in: '',
-    site_login: '',
-    site_password: '',
+    site_url: '',
+    admin_panel_url: '',
+    admin_panel_login: '',
+    admin_panel_password: '',
     ftp_server: '',
     ftp_login: '',
     ftp_password: '',
+    db_server: '',
+    db_name: '',
+    db_login: '',
+    db_password: '',
     comment: '',
     form_status: null
   }),
@@ -139,12 +195,17 @@ export default {
           this.site = response.data.data.content
 
           this.title = this.site.title
-          this.link_sign_in = this.site.link_sign_in
-          this.site_login = this.site.site_login
-          this.site_password = this.site.site_password
+          this.site_url = this.site.site_url
+          this.admin_panel_url = this.site.admin_panel_url
+          this.admin_panel_login = this.site.admin_panel_login
+          this.admin_panel_password = this.site.admin_panel_password
           this.ftp_server = this.site.ftp_server
           this.ftp_login = this.site.ftp_login
           this.ftp_password = this.site.ftp_password
+          this.db_server = this.site.db_server
+          this.db_name = this.site.db_name
+          this.db_login = this.site.db_login
+          this.db_password = this.site.db_password
           this.comment = this.site.comment
         })
     },
@@ -160,12 +221,12 @@ export default {
       const formData = new FormData()
 
       if (this.title !== this.site.title) formData.append('title', this.title)
-      if (this.title !== this.site.link_sign_in) formData.append('link_sign_in', this.link_sign_in)
+      if (this.title !== this.site.admin_panel_url) formData.append('admin_panel_url', this.admin_panel_url)
       if (this.title !== this.site.ftp_login) formData.append('ftp_login', this.ftp_login)
       if (this.title !== this.site.ftp_password) formData.append('ftp_password', this.ftp_password)
       if (this.title !== this.site.ftp_server) formData.append('ftp_server', this.ftp_server)
-      if (this.title !== this.site.site_login) formData.append('site_login', this.site_login)
-      if (this.title !== this.site.site_password) formData.append('site_password', this.site_password)
+      if (this.title !== this.site.admin_panel_login) formData.append('admin_panel_login', this.admin_panel_login)
+      if (this.title !== this.site.admin_panel_password) formData.append('admin_panel_password', this.admin_panel_password)
       if (this.title !== this.site.comment) formData.append('comment', this.comment)
       formData.append('_method', 'PATCH')
 
@@ -174,7 +235,7 @@ export default {
           this.$router.push({ name: 'dashboard.site.show', params: { id: this.id } })
         })
     },
-    ifNotFull () {
+    ifNotFullFTP () {
       let check = 0
 
       check += this.ftp_server ? 1 : 0
@@ -182,6 +243,16 @@ export default {
       check += this.ftp_password ? 1 : 0
 
       return !(check === 0 || check === 3)
+    },
+    ifNotFullDB () {
+      let check = 0
+
+      check += this.db_server ? 1 : 0
+      check += this.db_name ? 1 : 0
+      check += this.db_login ? 1 : 0
+      check += this.db_password ? 1 : 0
+
+      return !(check === 0 || check === 4)
     }
   },
   computed: {
@@ -194,28 +265,52 @@ export default {
     title: {
       required
     },
-    site_login: {
+    admin_panel_url: {
+      required,
+      url
+    },
+    admin_panel_login: {
       required
     },
-    site_password: {
+    admin_panel_password: {
       required
     },
     ftp_server: {
       required: requiredIf(function () {
-        return this.ifNotFull()
+        return this.ifNotFullFTP()
       })
     },
     ftp_login: {
       required: requiredIf(function () {
-        return this.ifNotFull()
+        return this.ifNotFullFTP()
       })
     },
     ftp_password: {
       required: requiredIf(function () {
-        return this.ifNotFull()
+        return this.ifNotFullFTP()
       })
     },
-    link_sign_in: {
+    db_server: {
+      required: requiredIf(function () {
+        return this.ifNotFullDB()
+      })
+    },
+    db_name: {
+      required: requiredIf(function () {
+        return this.ifNotFullDB()
+      })
+    },
+    db_login: {
+      required: requiredIf(function () {
+        return this.ifNotFullDB()
+      })
+    },
+    db_password: {
+      required: requiredIf(function () {
+        return this.ifNotFullDB()
+      })
+    },
+    site_url: {
       required,
       url
     }

@@ -44,23 +44,23 @@ const routes = [
   },
   { // Таблица доступов: Сайт
     path: route('dashboard.site'),
-    name: 'dashboard.site',
+    name: 'dashboard.site.index',
     meta: {
       layout: 'dashboard'
     },
     component: () => import('../views/Accesses/Site/SiteIndex')
   },
   { // Просмотр: Сайт
-    path: route('dashboard.site.show'),
-    name: 'dashboard.site',
+    path: route('dashboard.site.show') + ':id',
+    name: 'dashboard.site.show',
     meta: {
       layout: 'dashboard'
     },
     component: () => import('../views/Accesses/Site/SiteShow')
   },
   { // Редактирование: Сайт
-    path: route('dashboard.site.edit'),
-    name: 'dashboard.site',
+    path: route('dashboard.site.edit') + ':id',
+    name: 'dashboard.site.edit',
     meta: {
       layout: 'dashboard'
     },

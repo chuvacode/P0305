@@ -85,9 +85,15 @@ class SitesController extends Controller
      * @param  \App\Models\AccessSite  $accessSite
      * @return \Illuminate\Http\Response
      */
-    public function show(AccessSite $accessSite)
+    public function show($id)
     {
-        //
+        if ($host = AccessSite::find($id)) {
+            return $this->responseJSON(200, 'Success found', [
+                'content' => $host->toArray()
+            ]);
+        }
+
+        return $this->responseJSON(404, 'Not found');
     }
 
     /**
@@ -96,9 +102,15 @@ class SitesController extends Controller
      * @param  \App\Models\AccessSite  $accessSite
      * @return \Illuminate\Http\Response
      */
-    public function edit(AccessSite $accessSite)
+    public function edit($id)
     {
-        //
+        if ($host = AccessSite::find($id)) {
+            return $this->responseJSON(200, 'Success found', [
+                'content' => $host->toArray()
+            ]);
+        }
+
+        return $this->responseJSON(404, 'Not found');
     }
 
     /**
