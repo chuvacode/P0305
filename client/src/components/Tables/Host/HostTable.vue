@@ -81,7 +81,7 @@ export default {
     getDataTable () {
       this.axios.get(route('host.index'))
         .then(response => {
-          this.dataTableHosts = response.data.availables
+          this.dataTableHosts = response.data.data.content
         })
     },
     isCurrentCellHover (row, column) {

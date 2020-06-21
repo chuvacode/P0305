@@ -38,8 +38,6 @@
                     </div>
                   </div>
                 </div>
-<!--              </div>-->
-<!--              <div class="col-6">-->
                 <div class="d-flex">
                   <!-- Группа для ввода данных для авторизации в админ-панели -->
                   <div class="form_control_group_input col-6">
@@ -157,10 +155,20 @@
 
                   <div class="col-6 d-flex flex-column" style="padding-bottom: 12px;">
                     <!-- Поле для ввода комментария -->
-                    <div class="form_control_textarea_and_label" style="height: 100%;">
+                    <div class="form_control_textarea_and_label" style="height: 180px;">
                       <label for="textarea_comment">Комментарий(не обязательно):</label>
                       <textarea class="control_textarea" id="textarea_comment"
                                 v-model="comment" type="text"></textarea>
+                    </div>
+                    <!-- Поле прикрепления к хостингу -->
+                    <div class="form_control_input_and_label">
+                      <div class="form_control_container_input mt-0">
+                        <multiselect v-model="host" :options="options" :selectLabel="'Выбрать'" track-by="id" :custom-label="nameHostWithlogin" label="title" :selectedLabel="''" :placeholder="'Выберите хостинг'" :deselectLabel="'Убрать'" >
+                          <template v-slot:noResult>
+                            Не найдено
+                          </template>
+                        </multiselect>
+                      </div>
                     </div>
                     <!-- Кнопка сохранения -->
                     <button type="submit" class="button-1 mt-auto" :disabled="submit_status === 'PENDING'">Сохранить
@@ -200,12 +208,44 @@ export default {
     db_login: '',
     db_password: '',
     comment: '',
-    submit_status: null
+    host: '',
+    submit_status: null,
+    options: []
   }),
+  computed: {
+    // options() {
+    //   return
+    // }
+  },
   props: [
     'isVisibility'
   ],
+  mounted () {
+    this.getHosts()
+  },
   methods: {
+    getHosts () {
+      this.axios.get(route('host.index'), {
+        params: {
+          short: true
+        }
+      })
+        .then(response => {
+          this.options = response.data.data.content
+          // this.options = (response.data.data.content).map(item => {
+          //   return item.title
+          // })
+        })
+        // eslint-disable-next-line handle-callback-err
+        .catch(error => {
+        })
+    },
+    // eslint-disable-next-line camelcase
+    nameHostWithlogin ({ host_login, id, title }) {
+      console.log({ host_login, id, title })
+      // eslint-disable-next-line camelcase
+      return `${title} (${host_login})`
+    },
     handleClose () {
       this.$emit('close')
     },
@@ -230,6 +270,7 @@ export default {
         formData.append('db_login', this.db_login)
         formData.append('db_password', this.db_password)
         formData.append('comment', this.comment)
+        formData.append('host', this.host && this.host !== '' ? this.host.id : null)
 
         this.axios.post(route('site.store'), formData)
           .then((response) => {
@@ -281,7 +322,6 @@ export default {
       this.$v.$reset()
     }
   },
-
   validations: {
     title: {
       required
@@ -339,6 +379,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
+<style scoped>
+  .multiselect--above .multiselect__content-wrapper {
+    max-width: 283px!important;
+  }
 </style>

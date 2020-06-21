@@ -28,16 +28,20 @@ import Sidebar from '@/components/Sidebar'
 export default {
   name: 'Dashboard',
   data: () => ({
-    isOpenSidebar: true
+    isOpenSidebar: localStorage.isOpenSidebar === 'open'
   }),
   methods: {
     handleToggleSidebar () {
-      this.isOpenSidebar = !this.isOpenSidebar
+      localStorage.isOpenSidebar = localStorage.isOpenSidebar === 'open' ? 'close' : 'open'
+      this.isOpenSidebar = localStorage.isOpenSidebar === 'open'
+      // this.isOpenSidebar = !this.isOpenSidebar
       this.$refs.sidebar.toggleSidebar()
     }
   },
   mounted () {
-    window.dd = this.$refs.main
+    // localStorage.isOpenSidebar = localStorage.isOpenSidebar === undefined ? 'open' : localStorage.isOpenSidebar
+    // console.log(localStorage.isOpenSidebar)
+    // this.isOpenSidebar = localStorage.isOpenSidebar
   },
   components: {
     Sidebar

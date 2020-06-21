@@ -26,13 +26,16 @@
 @import 'components/form_confirmation';
 @import 'components/arrow';
 @import 'components/table';
+@import 'components/multiselect';
 
 // Основные
 body {
     color: $main-text;
 }
 
-
+.link {
+    color: $accent-1!important;
+}
 
 header  {
     background-color: $section-bg-2;

@@ -18,8 +18,10 @@ export default {
     return {
       activeMenuItem: null,
       menu: null,
-      sideBarVisibility: true
+      sideBarVisibility: localStorage.isOpenSidebar === 'open'
     }
+  },
+  mounted () {
   },
   created () {
     // if (localStorage.getItem('menu') == null) {

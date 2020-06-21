@@ -68,7 +68,7 @@
             align-items: center;
         }
     }
-    
+
     li.router-link-active:not(.category) {
 
         & > .item_menu {
@@ -111,6 +111,7 @@
 
 // Кнопка скрытия/раскрытия
 .close_sidebar {
+    cursor: pointer;
     display: flex;
     width: 42px;
     height: 33px;

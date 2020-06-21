@@ -1,0 +1,435 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Function
+@import 'function';
+
+// Helpers
+@import 'helpers';
+
+// General
+@import 'general';
+
+
+// Components
+@import 'components/search';
+@import 'components/modal';
+@import 'components/form_controls';
+@import 'components/tooltips';
+@import 'components/sidebar';
+@import 'components/form_confirmation';
+
+// Основные
+body {
+    color: $main-text;
+}
+
+header  {
+    background-color: $section-bg-2;
+    padding: 15px 0;
+
+    .cabinet {
+        margin-left: auto;
+    }
+
+    border-bottom: 2px solid #323232;
+}
+
+a {
+    color: $main-text!important;
+
+    &:hover {
+        text-decoration: none;
+        color: $main-text!important;
+    }
+}
+
+// FIX auto fill
+@-webkit-keyframes autofill {
+    to {
+        color: inherit;
+        background: $section-dark;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+
+
+
+
+.context_menu {
+    position: absolute;
+    left: -144px;
+    top: 50%;
+    transform:translate(0, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 132px;
+    height: 105px;
+    border-radius: 4px;
+    background: #323232;
+    border: 1px solid #2B2B2B;
+    z-index: 9999;
+    //overflow: hidden;
+
+    &:before {
+        z-index: 9999;
+        content: "";
+        border: 11px solid transparent;
+        border-right-width: 0;
+        border-left-color: #292929;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: rotate(0) translate(100%, -50%);
+    }
+
+    &:after {
+        z-index: 9999;
+        content: "";
+        position: absolute;
+        right: 1px;
+        top: 50%;
+        transform: rotate(0deg) translate(100%, -50%);
+        border-width: 11px 0px 11px 11px;
+        border-style: solid;
+        border-color: transparent transparent transparent rgb(50, 50, 50);
+        border-image: initial;
+    }
+
+    & > .less {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 41px;
+        height: 59px;
+        transform: translate(100%, -50%);
+        background: #323232;
+    }
+
+    & > a {
+        text-align: center;
+        border-bottom: 1px solid #2B2B2B;
+        padding: 10px 0;
+
+        font-family: HelveticaNeueCyr;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 14px;
+
+        &:hover {
+            background-color: $accent-2;
+        }
+
+        &:first-child {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        &:last-child {
+            //border-bottom: none;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+
+    }
+}
+
+.toggleSideBar {
+    & > span:before {
+        content: "";
+    }
+}
+
+.container_access {
+    padding: 30px!important;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.panel_line {
+    display: flex;
+    align-items: center;
+    h3 {
+        font-family: HelveticaNeueCyr;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 18px;
+    }
+
+    .right {
+        display: flex;
+    }
+
+
+}
+
+html.js .loader {
+    background: none repeat scroll 0 0 #ffffff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+}
+html.js .loader .loader_inner {
+    background-image: url("/images/preloader.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #fff;
+    height: 60px;
+    width: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+}
+
+.table_access {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 30px;
+    &::-webkit-scrollbar {
+        //width: 0px;  /* ширина scrollbar'a */
+        ////position: relative;
+        ////z
+        //background: #005cbf;  /* опционально */
+    }
+    table {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    color: $main-text;
+    font-family: HelveticaNeueCyr;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 14px;
+
+    tbody:before {
+        content: "-";
+        display: block;
+        line-height: 1em;
+        color: transparent;
+    }
+
+    th {
+        margin-bottom: 10px;
+    }
+
+    th, td {
+        background-color: #373842;
+        padding: 22px 20px;
+
+        border-right: 2px solid $section-bg-1;
+
+        &:last-child {
+            border: none;
+            width: 30px;
+        }
+    }
+
+    td {
+        cursor: pointer;
+
+        &:hover {
+            & .action_cell {
+                display: block;
+            }
+        }
+
+        &:last-child {
+            background-color: #373842;
+            background-image: url("/images/action.svg");
+            background-size: 18%;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 7px;
+            height: 18px;
+        }
+    }
+
+    tr {
+        border-bottom: 2px solid $section-bg-1;
+
+        &:last-child {
+            border: none;
+        }
+    }
+}
+
+.action_cell-copy {
+    & path {
+        transition: all 0.2s ease 0.2s;
+        stroke: rgb(168, 168, 168);
+    }
+
+    & svg {
+        transition: all 0.2s ease 0.2s;
+        transform: scale(1);
+    }
+}
+
+.action_cell-copy.active {
+    //display: block!important;
+
+    & path {
+        transition: all 0.2s ease 0.2s;
+        stroke: #ffffff!important;
+    }
+
+    & svg {
+        transition: all 0.2s ease 0.2s;
+        transform: scale(1.1);
+    }
+
+}
+
+//.item-close > .icon_dropdown {
+.item-close > span > i {
+    transition: all 1s ease;
+    transform: rotateX(180deg);
+}
+.item-open > span > i {
+    transition: all 1s ease;
+
+}
+
+//.icon-copy-leave {
+//    transition: all 0.2s ease;
+//    //transform: scale(1);
+//    opacity: 0;
+//}
+
+.icon-copy-enter-active, .icon-copy-leave-active {
+    transition: opacity .2s;
+}
+.icon-copy-enter, .icon-copy-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+}
+
+//.icon-copy-enter, .icon-copy-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+//    transition: all 1s ease;
+//    opacity: 0;
+//}
+
+.content_cell {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.action_cell {
+    //display: none;
+}
+.actions_cell {
+    position: absolute;
+    right: 0;
+    margin-left: auto;
+}
+
+
+
+
+// Форма авторизации
+.form_login {
+    max-width: 317.65px;
+    max-height: 198px;
+    width: 100%;
+    height: 100%;
+
+    background-color: $section-bg-1;
+    border-radius: 4px;
+    overflow: hidden;
+
+    .first_line {
+        padding: 20px;
+    }
+
+    .second_line {
+        display: flex;
+        height: 56px;
+
+        input {
+            width: 100%;
+            height: 100%;
+
+            border: none;
+            border-top: 1px solid $body-bg;
+            border-bottom: 1px solid $body-bg;
+            background-color: $section-bg-1;
+
+            padding: 20px;
+            color: $main-text;
+            font-family: HelveticaNeueCyr;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 18px;
+        }
+    }
+
+    .third_line {
+        width: 317.65px;
+        height: 53.77px;
+    }
+}
+
+.button_login {
+    width: 317.65px;
+    height: 53.77px;
+    color: $main-text!important;
+    background-color: $accent-1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: lighter($accent-1, 1);
+    }
+
+    &:active {
+        background-color: darker($accent-1, 1);
+    }
+}
+
+.avatar {
+    height: 48px;
+    width: 48px;
+    background-repeat: no-repeat;
+    //background-size: contain;
+    background-position: center;
+    border-radius: 50%;
+}
+
+.user_name {
+    margin-left: 20px;
+    font-family: HelveticaNeueCyr;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 18px;
+    color: $main-text;
+}

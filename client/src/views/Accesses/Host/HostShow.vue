@@ -11,9 +11,8 @@
     <div class="content">
       <a class="preview_link" :href="host.link_sign_in" target="_blank">
         <span>Перейти на хостинг</span>
-        <div class="image" :style="{backgroundImage: 'url(' + screenshot + ')'}"></div>
+        <div class="image" :style="{ backgroundImage: 'url(' + screenshot + ')' }"></div>
       </a>
-
       <div class="list_accesses">
         <div class="form_control_group_input">
           <label>Доступ к хостингу</label>
@@ -32,32 +31,32 @@
             </div>
           </div>
         </div>
-        <div class="form_control_group_input">
+        <div v-if="!host.ftp" class="form_control_group_input">
           <label>Доступ к FTP</label>
           <div class="form_control_input_and_label">
-            <label for="input_host_login">Сервер:</label>
+            <label for="input_ftp_server">Сервер:</label>
             <div class="form_control_container_input">
               <input class="control_input" id="input_ftp_server"
-                     type="text" v-model="host.host_login" disabled>
+                     type="text" v-model="host.ftp_server" disabled>
             </div>
           </div>
           <div class="form_control_input_and_label">
-            <label for="input_host_login">Логин:</label>
+            <label for="input_ftp_login">Логин:</label>
             <div class="form_control_container_input">
               <input class="control_input" id="input_ftp_login"
-                     type="text" v-model="host.host_login" disabled>
+                     type="text" v-model="host.ftp_login" disabled>
             </div>
           </div>
           <div class="form_control_input_and_label">
-            <label for="input_host_password">Пароль:</label>
+            <label for="input_ftp_password">Пароль:</label>
             <div class="form_control_container_input">
               <input class="control_input" id="input_ftp_password"
-                     type="text" v-model="host.host_password" disabled>
+                     type="text" v-model="host.ftp_password" disabled>
             </div>
           </div>
         </div>
         <div class="w-100"></div>
-        <div class="form_control_textarea_and_label w-100" style="height: 100%;">
+        <div v-show="host.comment && host.comment !== ''" class="form_control_textarea_and_label w-100" style="height: 100%;">
           <label for="textarea_comment">Комментарий:</label>
           <textarea class="control_textarea w-100" id="textarea_comment"
                     v-model="host.comment" type="text" disabled></textarea>

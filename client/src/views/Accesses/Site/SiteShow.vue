@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid container_access w-100">
     <div class="panel_line">
-      <h3>Просмотр: {{ site.title + ' #' + id }}</h3>
+      <h3>Просмотр: {{ site.title + ' #' + id }} <a class="link" v-if="this.site.host !== null && this.site.host !== undefined " :href="host_link">( {{ host_title }} )</a></h3>
       <div class="right ml-auto">
         <a id="go_back" class="button-1 ml-30" :href="back"
         >Вернуться</a>
@@ -9,10 +9,16 @@
       </div>
     </div>
     <div class="content">
-      <a class="preview_link" :href="site.link_sign_in" target="_blank">
-        <span>Перейти на хостинг</span>
-        <div class="image" :style="{backgroundImage: 'url(' + screenshot + ')'}"></div>
-      </a>
+      <div class="d-flex">
+        <a class="preview_link mr-30" :href="site.site_url" target="_blank">
+          <span>Перейти на сайт</span>
+          <div class="image" :style="{backgroundImage: 'url(' + screenshot + ')'}"></div>
+        </a>
+        <a class="preview_link" :href="site.admin_panel_url" target="_blank">
+          <span>Перейти к админ-панеле</span>
+          <div class="image" :style="{backgroundImage: 'url(' + screenshot + ')'}"></div>
+        </a>
+      </div>
 
       <div class="list_accesses">
         <div class="form_control_group_input mr-50">
@@ -142,6 +148,12 @@ export default {
     },
     url_edit () {
       return route('dashboard.site.edit', [this.id])
+    },
+    host_link () {
+      return this.site.host !== null && this.site.host !== undefined ? route('dashboard.host.show', [this.site.host.host.id]) : ''
+    },
+    host_title () {
+      return this.site.host !== null && this.site.host !== undefined ? this.site.host.host.title : ''
     }
   },
   components: {

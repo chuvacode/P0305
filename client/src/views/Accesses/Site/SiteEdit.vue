@@ -48,6 +48,13 @@
                    tooltip="Значение не является ссылкой"></div>
             </div>
           </div>
+          <div class="form_control_container_input mt-0">
+            <multiselect v-model="host" :options="options" :selectLabel="'Выбрать'" track-by="id" label="title" :custom-label="nameHostWithlogin" :selectedLabel="''" :placeholder="'Выберите хостинг'" :deselectLabel="'Убрать'" >
+              <template v-slot:noResult>
+                Не найдено
+              </template>
+            </multiselect>
+          </div>
 
         </div>
         <div class="w-100"></div>
@@ -172,6 +179,7 @@ export default {
     title: '',
     site_url: '',
     admin_panel_url: '',
+    host: '',
     admin_panel_login: '',
     admin_panel_password: '',
     ftp_server: '',
@@ -182,18 +190,39 @@ export default {
     db_login: '',
     db_password: '',
     comment: '',
-    form_status: null
+    form_status: null,
+    options: []
   }),
   mounted () {
     this.id = this.$route.params.id
     this.getSite()
+    this.getHosts()
   },
   methods: {
+    getHosts () {
+      this.axios.get(route('host.index'), {
+        params: {
+          short: true
+        }
+      })
+        .then(response => {
+          this.options = response.data.data.content
+          console.log(this.options)
+        })
+        // eslint-disable-next-line handle-callback-err
+        .catch(error => {
+        })
+    },
+    // eslint-disable-next-line camelcase
+    nameHostWithlogin ({ host_login, id, title }) {
+      console.log({ host_login, id, title })
+      // eslint-disable-next-line camelcase
+      return `${title} (${host_login})`
+    },
     getSite () {
       this.axios.get(route('site.edit', this.id))
         .then(response => {
           this.site = response.data.data.content
-
           this.title = this.site.title
           this.site_url = this.site.site_url
           this.admin_panel_url = this.site.admin_panel_url
@@ -207,6 +236,7 @@ export default {
           this.db_login = this.site.db_login
           this.db_password = this.site.db_password
           this.comment = this.site.comment
+          this.host = this.site.host ? this.site.host.host : null
         })
     },
     siteSave () {
@@ -221,15 +251,15 @@ export default {
       const formData = new FormData()
 
       if (this.title !== this.site.title) formData.append('title', this.title)
-      if (this.title !== this.site.admin_panel_url) formData.append('admin_panel_url', this.admin_panel_url)
-      if (this.title !== this.site.ftp_login) formData.append('ftp_login', this.ftp_login)
-      if (this.title !== this.site.ftp_password) formData.append('ftp_password', this.ftp_password)
-      if (this.title !== this.site.ftp_server) formData.append('ftp_server', this.ftp_server)
-      if (this.title !== this.site.admin_panel_login) formData.append('admin_panel_login', this.admin_panel_login)
-      if (this.title !== this.site.admin_panel_password) formData.append('admin_panel_password', this.admin_panel_password)
-      if (this.title !== this.site.comment) formData.append('comment', this.comment)
+      if (this.admin_panel_url !== this.site.admin_panel_url) formData.append('admin_panel_url', this.admin_panel_url)
+      if (this.ftp_login !== this.site.ftp_login) formData.append('ftp_login', this.ftp_login)
+      if (this.ftp_password !== this.site.ftp_password) formData.append('ftp_password', this.ftp_password)
+      if (this.ftp_server !== this.site.ftp_server) formData.append('ftp_server', this.ftp_server)
+      if (this.admin_panel_login !== this.site.admin_panel_login) formData.append('admin_panel_login', this.admin_panel_login)
+      if (this.admin_panel_password !== this.site.admin_panel_password) formData.append('admin_panel_password', this.admin_panel_password)
+      if (this.comment !== this.site.comment) formData.append('comment', this.comment)
+      if (this.host !== null) formData.append('host', this.host.id)
       formData.append('_method', 'PATCH')
-
       this.axios.post(route('site.update', [this.id]), formData)
         .then(response => {
           this.$router.push({ name: 'dashboard.site.show', params: { id: this.id } })
@@ -259,7 +289,6 @@ export default {
     back () {
       return route('dashboard.site')
     }
-
   },
   validations: {
     title: {
@@ -320,6 +349,8 @@ export default {
   }
 }
 </script>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style scoped>
   .list_accesses {

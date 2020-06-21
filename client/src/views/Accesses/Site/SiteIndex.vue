@@ -26,7 +26,10 @@ export default {
   data: function () {
     return {
       search: '',
-      isVisibilityFormAddSite: false
+      isVisibilityFormAddSite: false,
+      host: '',
+      options: ['jino', 'nic', 'reg'],
+      selectLabel: ''
     }
   },
   components: {
