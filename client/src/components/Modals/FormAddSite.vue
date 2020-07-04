@@ -163,7 +163,7 @@
                     <!-- Поле прикрепления к хостингу -->
                     <div class="form_control_input_and_label">
                       <div class="form_control_container_input mt-0">
-                        <multiselect v-model="host" :options="options" :selectLabel="'Выбрать'" track-by="id" :custom-label="nameHostWithlogin" label="title" :selectedLabel="''" :placeholder="'Выберите хостинг'" :deselectLabel="'Убрать'" >
+                        <multiselect v-model="host" :options="GET_SHORT_HOSTS" :selectLabel="'Выбрать'" track-by="id" :custom-label="nameHostWithlogin" label="title" :selectedLabel="''" :placeholder="'Выберите хостинг'" :deselectLabel="'Убрать'" >
                           <template v-slot:noResult>
                             Не найдено
                           </template>
@@ -191,6 +191,7 @@
 <script>
 import { required, requiredIf, url } from 'vuelidate/lib/validators'
 import route from '@/router/route'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'FormAddHost',
@@ -209,40 +210,26 @@ export default {
     db_password: '',
     comment: '',
     host: '',
-    submit_status: null,
-    options: []
+    submit_status: null
   }),
   computed: {
-    // options() {
-    //   return
-    // }
+    ...mapGetters([
+      'GET_SHORT_HOSTS'
+    ])
   },
   props: [
     'isVisibility'
   ],
   mounted () {
-    this.getHosts()
+    this.GET_SHORT_HOSTS_FROM_API()
   },
   methods: {
-    getHosts () {
-      this.axios.get(route('host.index'), {
-        params: {
-          short: true
-        }
-      })
-        .then(response => {
-          this.options = response.data.data.content
-          // this.options = (response.data.data.content).map(item => {
-          //   return item.title
-          // })
-        })
-        // eslint-disable-next-line handle-callback-err
-        .catch(error => {
-        })
-    },
+    ...mapActions([
+      'ADD_SITE',
+      'GET_SHORT_HOSTS_FROM_API'
+    ]),
     // eslint-disable-next-line camelcase
     nameHostWithlogin ({ host_login, id, title }) {
-      console.log({ host_login, id, title })
       // eslint-disable-next-line camelcase
       return `${title} (${host_login})`
     },
@@ -272,19 +259,18 @@ export default {
         formData.append('comment', this.comment)
         formData.append('host', this.host && this.host !== '' ? this.host.id : null)
 
-        this.axios.post(route('site.store'), formData)
-          .then((response) => {
+        this.ADD_SITE(formData)
+          .then(response => {
             this.submit_status = 'OK'
             this.handleClose()
-            this.$emit('update')
             this.clearForm()
+            this.axios.get(route('api.screenshot', [this.title]))
           })
           // eslint-disable-next-line handle-callback-err
           .catch(error => {
             this.submit_status = 'ERROR'
+            window.newToast('Возникла ошибка', 'error', 3)
           })
-
-        this.axios.get(route('api.screenshot', [this.title]))
       }
     },
     ifNotFullFTP () {

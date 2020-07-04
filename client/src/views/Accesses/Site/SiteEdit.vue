@@ -251,6 +251,7 @@ export default {
       const formData = new FormData()
 
       if (this.title !== this.site.title) formData.append('title', this.title)
+      if (this.site_url !== this.site.site_url) formData.append('site_url', this.site_url)
       if (this.admin_panel_url !== this.site.admin_panel_url) formData.append('admin_panel_url', this.admin_panel_url)
       if (this.ftp_login !== this.site.ftp_login) formData.append('ftp_login', this.ftp_login)
       if (this.ftp_password !== this.site.ftp_password) formData.append('ftp_password', this.ftp_password)
@@ -263,6 +264,11 @@ export default {
       this.axios.post(route('site.update', [this.id]), formData)
         .then(response => {
           this.$router.push({ name: 'dashboard.site.show', params: { id: this.id } })
+          window.newToast('Успешно сохранено', 'success', 3)
+        })
+        // eslint-disable-next-line handle-callback-err
+        .catch(error => {
+          window.newToast('Возникла ошибка', 'error', 3)
         })
     },
     ifNotFullFTP () {

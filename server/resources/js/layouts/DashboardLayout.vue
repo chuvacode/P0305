@@ -38,7 +38,6 @@
             }
         },
         mounted() {
-            window.dd = this.$refs.main;
         },
         components: {
             Sidebar

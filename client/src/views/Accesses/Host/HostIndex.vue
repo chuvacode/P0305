@@ -20,6 +20,7 @@
 import HostTable from '@/components/Tables/Host/HostTable'
 import Search from '@/components/Search'
 import FormAddHostModal from '@/components/Modals/FormAddHost'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'HostIndex',
@@ -33,8 +34,9 @@ export default {
     HostTable, Search, FormAddHostModal
   },
   methods: {
+    ...mapActions(['getAllHosts']),
     handleTableUpdate () {
-      this.$refs.table.getDataTable()
+      this.getAllHosts()
     }
   }
 }

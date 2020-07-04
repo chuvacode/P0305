@@ -27,10 +27,12 @@
 @import 'components/arrow';
 @import 'components/table';
 @import 'components/multiselect';
+@import 'components/toast';
 
 // Основные
 body {
     color: $main-text;
+    overflow-y: hidden;
 }
 
 .link {

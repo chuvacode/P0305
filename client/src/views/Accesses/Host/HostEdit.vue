@@ -100,15 +100,12 @@
         </div>
       </form>
     </div>
-
-    <toast></toast>
-
   </div>
 </template>
 
 <script>
 import route from '@/router/route'
-import Toast from '@/utils/toast/toast'
+
 import { required, requiredIf, url } from 'vuelidate/lib/validators'
 
 export default {
@@ -172,6 +169,11 @@ export default {
       this.axios.post(route('host.update', [this.id]), formData)
         .then(response => {
           this.$router.push({ name: 'dashboard.host.show', params: { id: this.id } })
+          window.newToast('Успешно сохранено', 'success', 3)
+        })
+        // eslint-disable-next-line handle-callback-err
+        .catch(error => {
+          window.newToast('Возникла ошибка', 'error', 3)
         })
     },
     ifNotFull () {
@@ -221,7 +223,6 @@ export default {
     }
   },
   components: {
-    Toast
   }
 }
 </script>

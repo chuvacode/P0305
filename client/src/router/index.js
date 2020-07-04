@@ -9,13 +9,13 @@ const routes = [
     path: '/',
     name: 'home',
     meta: { layout: 'dashboard' },
-    component: () => import('../views/Accesses/Host/HostIndex')
+    redirect: { name: 'dashboard.host' }
   },
   { // Панель управления
     path: route('dashboard'),
     name: 'dashboard',
     meta: { layout: 'dashboard' },
-    component: () => import('../views/Accesses/Host/HostIndex')
+    redirect: { name: 'dashboard.host' }
   },
   { // Таблица доступов: Хостинг
     path: '/dashboard/host/', // route('dashboard.host'), // /dashboard/host/:id

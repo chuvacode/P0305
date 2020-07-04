@@ -2302,7 +2302,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    window.dd = this.$refs.main;
   },
   components: {
     Sidebar: _components_Sidebar__WEBPACK_IMPORTED_MODULE_0__["default"]

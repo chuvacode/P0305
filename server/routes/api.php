@@ -29,6 +29,11 @@ Route::group(['prefix' => 'dashboard', 'namespace' => 'API\Dashboard\\'], functi
     Route::resource('site', 'Accesses\SitesController');
 
     // Screenshot
-    Route::get('srceenshot/{site}', 'ScreenshotController@screenshot');
+    Route::get('srceenshot', 'ScreenshotController@screenshot');
+//    Route::get('srceenshot/{site}', 'ScreenshotController@screenshot');
 
 });
+
+//Route::post('/register', 'API\Security\AuthController@register');
+//Route::post('/login', 'API\Security\AuthController@login');
+//Route::post('/logout', 'API\Security\AuthController@logout');

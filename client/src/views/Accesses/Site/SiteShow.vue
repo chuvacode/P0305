@@ -16,7 +16,7 @@
         </a>
         <a class="preview_link" :href="site.admin_panel_url" target="_blank">
           <span>Перейти к админ-панеле</span>
-          <div class="image" :style="{backgroundImage: 'url(' + screenshot + ')'}"></div>
+          <div class="image" :style="{backgroundImage: 'url(' + screenshot_admin_panel + ')'}"></div>
         </a>
       </div>
 
@@ -115,7 +115,8 @@ export default {
     site: {
       title: ''
     },
-    screenshot: ''
+    screenshot: '',
+    screenshot_admin_panel: ''
   }),
   mounted () {
     this.id = this.$route.params.id
@@ -127,6 +128,7 @@ export default {
         .then(response => {
           this.site = response.data.data.content
           this.getSreenshot()
+          this.getSreenshotAdminPanel()
         })
       // eslint-disable-next-line handle-callback-err
         .catch(error => {
@@ -134,11 +136,27 @@ export default {
         })
     },
     getSreenshot () {
-      this.axios.get(route('api.screenshot', [this.site.title]))
+      this.axios.get(route('api.screenshot'), {
+        params: {
+          url: this.site.title
+        }
+      })
         .then(response => {
           this.screenshot = response.data.data.screenshot
         })
       // eslint-disable-next-line handle-callback-err
+        .catch(error => {})
+    },
+    getSreenshotAdminPanel () {
+      this.axios.get(route('api.screenshot'), {
+        params: {
+          url: this.site.admin_panel_url.replace(/(^\w+:|^)\/\//, '')
+        }
+      })
+        .then(response => {
+          this.screenshot_admin_panel = response.data.data.screenshot
+        })
+        // eslint-disable-next-line handle-callback-err
         .catch(error => {})
     }
   },

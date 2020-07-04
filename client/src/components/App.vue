@@ -20,5 +20,5 @@ export default {
 </script>
 
 <style scoped>
-@import '../s';
+/*@import '../s';*/
 </style>

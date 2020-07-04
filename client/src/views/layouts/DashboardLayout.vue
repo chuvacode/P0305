@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="position-relative overflow-hidden">
     <header>
       <div class="container-fluid d-flex align-items-center px-5">
         <span class="item_menu close_sidebar" :class="{hide: isOpenSidebar}" @click="handleToggleSidebar"><span></span></span>
@@ -19,11 +19,15 @@
     <footer>
 
     </footer>
+    <toast></toast>
+    <confirm-form></confirm-form>
   </div>
 </template>
 
 <script>
+import Toast from '@/utils/toast/toast'
 import Sidebar from '@/components/Sidebar'
+import ConfirmForm from '@/components/Modals/ConfirmForm'
 
 export default {
   name: 'Dashboard',
@@ -44,7 +48,7 @@ export default {
     // this.isOpenSidebar = localStorage.isOpenSidebar
   },
   components: {
-    Sidebar
+    Sidebar, Toast, ConfirmForm
   }
 }
 </script>

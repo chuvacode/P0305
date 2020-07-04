@@ -13,27 +13,21 @@
         <th></th>
         </thead>
         <tbody>
-        <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id" @update="getDataTable" @confirm="handleConfirm"
-             :confirmStatus="confirmStatus"></row>
+        <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id"></row>
         </tbody>
       </table>
     </div>
-
-    <confirm-form :isVisibility="isVisibilityConfirmForm" @close="handleCloseFormConfirmation"
-                  @confirmDestroy="handleConfirmResponse(true)" @refuteDestroy="handleConfirmResponse(false)"></confirm-form>
   </div>
 </template>
 
 <script>
-import route from '@/router/route'
 import Row from '@/components/Tables/Host/HostRow'
-import ConfirmForm from '@/components/Modals/ConfirmForm'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'HostTable',
   data: function () {
     return {
-      dataTableHosts: [], // Данные из таблицы
       activeCell: null, // DOM активного поля
       activeCellIndex: null, // Индекс активного поля
       cellHoverIndex: null, // Индекс поля, на котором указатель
@@ -45,44 +39,22 @@ export default {
   props: [
     'search'
   ],
-  mounted () {
+  async mounted () {
     // Получение данных для таблицы
-    this.getDataTable()
+    this.GET_ALL_HOSTS_FROM_API()
   },
   methods: {
-    Destroy (id) {
-      this.axios.delete(route('host.destroy', [id]))
-        .then(response => {
-          this.getDataTable()
-        })
-        // eslint-disable-next-line handle-callback-err
-        .catch(error => {
-          console.log('bad')
-        })
-
-      this.$emit('update')
-    },
+    ...mapActions(['GET_ALL_HOSTS_FROM_API']),
     handleConfirmResponse (status) {
       this.isVisibilityConfirmForm = false
       if (status) {
-        this.Destroy(this.confirmID)
+        this.destroyHost({
+          component: this,
+          id: this.confirmID
+        })
       }
       this.confirmStatus = null
       this.confirmID = null
-    },
-    handleCloseFormConfirmation () {
-      this.isVisibilityConfirmForm = false
-    },
-    handleConfirm (id) {
-      this.confirmStatus = null
-      this.confirmID = id
-      this.isVisibilityConfirmForm = true
-    },
-    getDataTable () {
-      this.axios.get(route('host.index'))
-        .then(response => {
-          this.dataTableHosts = response.data.data.content
-        })
     },
     isCurrentCellHover (row, column) {
       return !!(this.cellHoverIndex !== null && this.cellHoverIndex[0] === row && this.cellHoverIndex[1] === column)
@@ -92,14 +64,13 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['GET_ALL_HOSTS']),
     accessesDataTable: function () {
       const newArray = []
 
       const searchQ = this.search.toLowerCase()
-
-      this.dataTableHosts.filter((item) => {
+      this.GET_ALL_HOSTS.filter((item) => {
         const currentRow = item
-        // const searchString = currentRow.name + currentRow.ftp_server + currentRow.host_login + currentRow.comment + currentRow.ftp_login
 
         if ((currentRow.title && currentRow.title.toLowerCase().indexOf(searchQ) !== -1) ||
             (currentRow.ftp_server && currentRow.ftp_server.toLowerCase().indexOf(searchQ) !== -1) ||
@@ -114,7 +85,7 @@ export default {
     }
   },
   components: {
-    ConfirmForm, Row
+    Row
   }
 }
 </script>

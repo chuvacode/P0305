@@ -1,14 +1,14 @@
 <template>
     <transition name="modal">
-        <div v-show="isVisibility" class="modal_container">
+        <div v-show="GET_IS_VISIBILITY_CONFIRM_FORM" class="modal_container">
             <transition name="modal_form">
-                <div v-show="isVisibility" class="modal_form form_confirmation">
+                <div v-show="GET_IS_VISIBILITY_CONFIRM_FORM" class="modal_form form_confirmation">
                     <div class="modal_content">
                         <form action="" class="row ">
                             <h3>Вы уверены?</h3>
                             <div>
-                                <button class="button-1 mt-auto bg_green" @click.prevent="handleConfirm">Да</button>
-                                <button class="button-1 mt-auto bg_red" @click.prevent="handleRefute">Нет</button>
+                                <button class="button-1 mt-auto bg_green" @click.prevent="UPDATE_CONFIRM_STATUS(true)">Да</button>
+                                <button class="button-1 mt-auto bg_red" @click.prevent="UPDATE_CONFIRM_STATUS(false)">Нет</button>
                             </div>
 
                         </form>
@@ -16,28 +16,27 @@
                 </div>
             </transition>
             <transition name="overlay">
-                <div v-if="isVisibility" @click="handleClose" class="overlay_bg"></div>
+                <div v-if="GET_IS_VISIBILITY_CONFIRM_FORM" @click="TOGGLE_CONFIRM_FORM" class="overlay_bg"></div>
             </transition>
         </div>
     </transition>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'ConfirmForm',
-  props: [
-    'isVisibility'
-  ],
+  computed: {
+    ...mapGetters([
+      'GET_IS_VISIBILITY_CONFIRM_FORM'
+    ])
+  },
   methods: {
-    handleConfirm () {
-      this.$emit('confirmDestroy')
-    },
-    handleRefute () {
-      this.$emit('refuteDestroy')
-    },
-    handleClose () {
-      this.$emit('close')
-    }
+    ...mapActions([
+      'TOGGLE_CONFIRM_FORM',
+      'UPDATE_CONFIRM_STATUS'
+    ])
   }
 }
 </script>

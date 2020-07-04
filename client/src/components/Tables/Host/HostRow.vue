@@ -15,6 +15,7 @@
 <script>
 import Cell from '@/components/Tables/Cell'
 import route from '@/router/route'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'HostRow',
@@ -29,8 +30,12 @@ export default {
     'row'
   ],
   methods: {
+    ...mapActions([
+      'DESTROY_HOST_BY_ID',
+      'START_CONFIRM_FORM'
+    ]),
     handleDestroy () {
-      this.$emit('confirm', this.row.id)
+      this.START_CONFIRM_FORM(() => { return this.DESTROY_HOST_BY_ID(this.row.id) })
       this.isContextVisibility = false
     },
     handleOverActionCell () {

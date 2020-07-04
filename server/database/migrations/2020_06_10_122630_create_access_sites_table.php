@@ -17,7 +17,7 @@ class CreateAccessSitesTable extends Migration
             $table->id();
             $table->string('title', 50);
             $table->string('site_url', 255);
-            $table->string('admin_panel_url', 50);
+            $table->string('admin_panel_url', 255);
             $table->string('admin_panel_login', 30);
             $table->string('admin_panel_password', 255);
             $table->string('ftp_server', 50)->nullable();

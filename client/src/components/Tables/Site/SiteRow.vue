@@ -15,6 +15,7 @@
 <script>
 import Cell from '@/components/Tables/Cell'
 import route from '@/router/route'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'SiteRow',
@@ -29,8 +30,12 @@ export default {
     'row'
   ],
   methods: {
+    ...mapActions([
+      'START_CONFIRM_FORM',
+      'DESTROY_SITE_BY_ID'
+    ]),
     handleDestroy () {
-      this.$emit('confirmDestroy', this.row.id)
+      this.START_CONFIRM_FORM(() => { return this.DESTROY_SITE_BY_ID(this.row.id) })
       this.isContextVisibility = false
     },
     handleOverActionCell () {

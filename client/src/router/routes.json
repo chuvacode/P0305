@@ -14,7 +14,7 @@
     "site.edit": "http://api.p0305.loc:80/api\/dashboard\/site\/{site}\/edit",
     "site.update": "http://api.p0305.loc:80/api\/dashboard\/site\/{site}",
     "site.destroy": "http://api.p0305.loc:80/api\/dashboard\/site\/{site}",
-    "api.screenshot": "http://api.p0305.loc:80/api\/dashboard\/srceenshot\/{site}",
+    "api.screenshot": "http://api.p0305.loc:80/api\/dashboard\/srceenshot",
     "home": "\/",
     "dashboard": "dashboard",
     "dashboard.host": "dashboard\/host",

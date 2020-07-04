@@ -12,8 +12,10 @@ class ScreenshotController extends Controller
 
     use ResponseJSON;
 
-    public function screenshot($url) {
+    public function screenshot(Request $request) {
 //        header('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+        $url = $request->query('url');
         // Поиск в бд
         $screenshot = Screenshot::where('site', 'LIKE', $url)->get();
 

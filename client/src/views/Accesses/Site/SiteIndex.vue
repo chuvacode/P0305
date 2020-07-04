@@ -11,8 +11,7 @@
     </div>
     <site-table :search="search" ref="table"></site-table>
     <form-add-site-modal :isVisibility="isVisibilityFormAddSite"
-                         @close="isVisibilityFormAddSite = false"
-                         @update="handleTableUpdate"></form-add-site-modal>
+                         @close="isVisibilityFormAddSite = false"></form-add-site-modal>
   </div>
 </template>
 
@@ -36,9 +35,6 @@ export default {
     SiteTable, Search, FormAddSiteModal
   },
   methods: {
-    handleTableUpdate () {
-      this.$refs.table.getDataTable()
-    }
   }
 }
 </script>

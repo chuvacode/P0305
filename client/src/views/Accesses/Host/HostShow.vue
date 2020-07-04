@@ -96,7 +96,11 @@ export default {
         })
     },
     getSreenshot () {
-      this.axios.get(route('api.screenshot', [this.host.title]))
+      this.axios.get(route('api.screenshot'), {
+        params: {
+          url: this.host.title
+        }
+      })
         .then(response => {
           this.screenshot = response.data.data.screenshot
         })

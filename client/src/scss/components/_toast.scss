@@ -1,0 +1,34 @@
+.toast_message {
+  position: absolute;
+  z-index: 9999;
+  bottom: 5%;
+  right: 30px;
+  background-color: $section-bg-1;
+  //border: 2px solid $section-dark;
+  outline: 2px solid $section-dark;
+  padding: 20px 30px;
+  font-family: HelveticaNeueCyr;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  color: $main-text;
+  transition: all 1s ease;
+  cursor: pointer;
+}
+
+.toast_message.hide {
+  right: -300px !important;
+}
+
+.toast_message.success {
+  border-left: 10px solid #348F32;
+}
+
+.toast_message.error {
+  border-left: 10px solid #ff5348;
+}
+
+.toast_message.warning {
+  border-left: 10px solid #ffae00;
+}

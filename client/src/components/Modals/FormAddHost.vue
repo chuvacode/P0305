@@ -108,6 +108,7 @@
 
 <script>
 import { required, requiredIf, url } from 'vuelidate/lib/validators'
+import { mapActions } from 'vuex'
 import route from '@/router/route'
 
 export default {
@@ -126,9 +127,10 @@ export default {
   props: [
     'isVisibility'
   ],
-  mounted () {
-  },
   methods: {
+    ...mapActions([
+      'ADD_HOST'
+    ]),
     handleClose () {
       this.$emit('close')
     },
@@ -149,18 +151,16 @@ export default {
         formData.append('ftp_password', this.ftp_password)
         formData.append('comment', this.comment)
 
-        this.axios.post(route('host.store'), formData)
-          .then((response) => {
+        this.ADD_HOST(formData)
+          .then(response => {
             this.submit_status = 'OK'
             this.handleClose()
-            this.$emit('update')
+            this.axios.get(route('api.screenshot', [this.title]))
           })
           // eslint-disable-next-line handle-callback-err
           .catch(error => {
             this.submit_status = 'ERROR'
           })
-
-        this.axios.get(route('api.screenshot', [this.title]))
       }
     },
     ifNotFull () {

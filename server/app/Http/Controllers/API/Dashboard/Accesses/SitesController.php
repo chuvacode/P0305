@@ -80,7 +80,7 @@ class SitesController extends Controller
         $AccessHost = AccessSite::create($data);
 
         // Создание связи, если выбран хостинг
-        if ($host_id !== null) {
+        if ($host_id !== null && $host_id !== 'null' && $host_id !== '') {
             LinkSiteToHost::create([
                 'site_id' => $AccessHost->id,
                 'host_id' => $host_id
@@ -107,19 +107,6 @@ class SitesController extends Controller
         return $this->responseJSON(404, 'Not found');
     }
 
-    /**
-     * Get linked host
-     */
-    public function getLinkedHost($id)
-    {
-//        if ($host = AccessSite::find($id)->host()) {
-//            return $this->responseJSON(200, 'Success found', [
-//                'content' => $host->toArray()
-//            ]);
-//        }
-//
-//        return $this->responseJSON(404, 'Not found');
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -220,10 +207,15 @@ class SitesController extends Controller
      */
     public function destroy($id)
     {
-        if (!$host = AccessSite::find($id))
+        if (!$site = AccessSite::find($id))
             return $this->responseJSON(404, 'Not found');
 
-        if ($host->delete())
+        // Удаление связи с хостингом, если есть
+        if (($link = LinkSiteToHost::where('site_id', $site->id)->get())->toArray() !== [])
+            $link->delete();
+
+        // Удаление сайта
+        if ($site->delete())
             return $this->responseJSON(204, 'Success destroy');
 
         return $this->responseJSON(501, 'Not implemented');
