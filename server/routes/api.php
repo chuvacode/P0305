@@ -18,22 +18,31 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::get('/get-menu', 'Dashboard\IndexController@getMenu')->name('get-menu');
+Route::middleware('auth:api')->group(function () {
+    // Auth
+    Route::post('/logout', 'API\Security\AuthController@logout');
+    Route::get('/get-user', 'API\Security\AuthController@getUser');
 
-// Dashboard
-Route::group(['prefix' => 'dashboard', 'namespace' => 'API\Dashboard\\'], function () { // 'middleware' => ['cors']
-    // Хостинги
-    Route::resource('host', 'Accesses\HostsController');
+    Route::get('/get-menu', 'Dashboard\IndexController@getMenu')->name('get-menu');
 
-    // Сайты
-    Route::resource('site', 'Accesses\SitesController');
+    // Dashboard
+    Route::group(['prefix' => 'dashboard', 'namespace' => 'API\Dashboard\\'], function () { // 'middleware' => ['cors']
+        // Хостинги
+        Route::resource('host', 'Accesses\HostsController');
 
-    // Screenshot
-    Route::get('srceenshot', 'ScreenshotController@screenshot');
-//    Route::get('srceenshot/{site}', 'ScreenshotController@screenshot');
+        // Сайты
+        Route::resource('site', 'Accesses\SitesController');
 
+        // Screenshot
+        Route::get('srceenshot', 'ScreenshotController@screenshot');
+    //    Route::get('srceenshot/{site}', 'ScreenshotController@screenshot');
+
+    });
 });
 
-//Route::post('/register', 'API\Security\AuthController@register');
-//Route::post('/login', 'API\Security\AuthController@login');
-//Route::post('/logout', 'API\Security\AuthController@logout');
+// Auth
+Route::post('/register', 'API\Security\AuthController@register');
+Route::post('/login', 'API\Security\AuthController@login');
+
+
+

@@ -4,7 +4,7 @@
         @click="handleClick"
     >
         <div class="content_cell">
-            <span style="margin-right: 40px;">{{(name.indexOf('password') > -1 && value != null) ? '●'.repeat(value.length) : value }}</span>
+            <span style="margin-right: 40px;" :class="{'password-cell': isPassword}">{{isPassword ? '●'.repeat(value.length) : value }}</span>
             <div class="actions_cell">
                 <transition name="icon-copy">
                     <i v-if="isHover || isClick" class="action_cell action_cell-copy" :class="{active: isClick}">
@@ -29,6 +29,11 @@ export default {
   props: [
     'value', 'name'
   ],
+  computed: {
+    isPassword () {
+      return (this.name.indexOf('password') > -1 && this.value != null)
+    }
+  },
   methods: {
     handleClick () {
       if (this.isClick) return
@@ -63,4 +68,7 @@ export default {
 
 <style scoped>
   /*[ma_calendar]*/
+  .password-cell {
+    font-size: 10px;
+  }
 </style>

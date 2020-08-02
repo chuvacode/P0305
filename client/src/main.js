@@ -9,6 +9,13 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 // import Multiselect from '@/utils/multiselect/Multiselect'
 import Multiselect from 'vue-multiselect'
+import Auth from '@/auth.js'
+import Api from './api.js'
+
+window.Event = new Vue()
+window.axios = axios
+window.api = new Api()
+window.auth = new Auth()
 
 Vue.component('multiselect', Multiselect)
 Vue.use(Vuelidate)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Dashboard\Accesses;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\Crypter;
 use App\Http\Traits\ResponseJSON;
 use App\Models\AccessHost;
 use App\Models\LinkSiteToHost;
@@ -15,6 +16,7 @@ class HostsController extends Controller
 
     // Подключаем конструктор ответов в JSON формате
     use ResponseJSON;
+    use Crypter;
 
     /**
      * Display a listing of the resource.
@@ -30,6 +32,8 @@ class HostsController extends Controller
             $hosts = AccessHost::all();
         }
 
+        $hosts = $this->decryptCollection($hosts);
+
         return $this->responseJSON(200, 'OK', [ 'content' => $hosts->toArray() ]);
     }
 
@@ -38,11 +42,8 @@ class HostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($data)
+    public function create()
     {
-        $AccessHost = AccessHost::create($data);
-
-        return $AccessHost;
     }
 
     /**
@@ -77,8 +78,11 @@ class HostsController extends Controller
             return $this->responseJSON(422, 'Unprocessable entity', $errors);
         }
 
+        // Шифрование
+        $data = $this->encryptCollection($data);
+
         // Добавление в БД и получение добавленного экземпляра
-        $AccessHost = $this->create($data);
+        $AccessHost = AccessHost::create($data);
 
         return $this->responseJSON(201, 'Created');
     }
@@ -93,7 +97,7 @@ class HostsController extends Controller
     {
         if ($host = AccessHost::find($id)) {
             return $this->responseJSON(200, 'Success found', [
-                'content' => $host->toArray()
+                'content' => $this->decryptArray($host->toArray())
             ]);
         }
 
@@ -110,7 +114,7 @@ class HostsController extends Controller
     {
         if ($host = AccessHost::find($id)) {
             return $this->responseJSON(200, 'Success found', [
-               'content' => $host->toArray()
+               'content' => $this->decryptArray($host->toArray())
             ]);
         }
 
@@ -152,6 +156,9 @@ class HostsController extends Controller
 
             return $this->responseJSON(422, 'Unprocessable entity', $errors);
         }
+
+        // Шифрование
+        $data = $this->encryptCollection($data);
 
         $host->update($data);
 

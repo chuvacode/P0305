@@ -347,11 +347,10 @@ html.js .loader .loader_inner {
     margin-left: auto;
 }
 
-
-
-
 // Форма авторизации
 .form_login {
+    position: absolute;
+
     max-width: 317.65px;
     max-height: 198px;
     width: 100%;

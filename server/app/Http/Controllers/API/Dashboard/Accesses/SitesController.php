@@ -3,25 +3,32 @@
 namespace App\Http\Controllers\API\Dashboard\Accesses;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\Crypter;
 use App\Http\Traits\ResponseJSON;
 use App\Models\AccessSite;
 use App\Models\LinkSiteToHost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Encryption\DecryptException;
+use mysql_xdevapi\Collection;
 
 class SitesController extends Controller
 {
 
     use ResponseJSON;
+    use Crypter;
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $sites = AccessSite::all();
+
+        $sites = $this->decryptCollection($sites);
 
         return $this->responseJSON(200, 'Success', [
             'availables' => $sites
@@ -46,10 +53,13 @@ class SitesController extends Controller
      */
     public function store(Request $request)
     {
+
         // Извлекаем полученные данные
         $data = $request->all();
         $host_id = $data['host'];
         unset($data['host']);
+
+        //### Добавить проверку $data['host']
 
         // Проверяем полученные данные
         $validator = Validator::make($data, [
@@ -76,6 +86,9 @@ class SitesController extends Controller
             return $this->responseJSON(422, 'Unprocessable entity', $errors);
         }
 
+        // Шифрование
+        $data = $this->encryptCollection($data);
+
         // Добавление в БД и получение добавленного экземпляра
         $AccessHost = AccessSite::create($data);
 
@@ -99,8 +112,9 @@ class SitesController extends Controller
     public function show(Request $request, $id)
     {
         if ($site = AccessSite::where('id', $id)->with('host.host')->get()) {
+
             return $this->responseJSON(200, 'Success found', [
-                'content' => $site->toArray()[0]
+                'content' => $this->decryptCollection($site)->toArray()[0]
             ]);
         }
 
@@ -118,7 +132,7 @@ class SitesController extends Controller
     {
         if ($site = AccessSite::where('id', $id)->with('host.host')->get()) {
             return $this->responseJSON(200, 'Success found', [
-                'content' => $site->toArray()[0]
+                'content' => $this->decryptCollection($site)->toArray()[0]
             ]);
         }
 
@@ -170,6 +184,9 @@ class SitesController extends Controller
 
             return $this->responseJSON(422, 'Unprocessable entity', $errors);
         }
+
+        // Шифрование
+        $data = $this->encryptCollection($data);
 
         $site->update($data);
 

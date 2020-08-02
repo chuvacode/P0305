@@ -15,19 +15,19 @@ class CreateAccessSitesTable extends Migration
     {
         Schema::create('access_sites', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 50);
-            $table->string('site_url', 255);
-            $table->string('admin_panel_url', 255);
-            $table->string('admin_panel_login', 30);
-            $table->string('admin_panel_password', 255);
-            $table->string('ftp_server', 50)->nullable();
-            $table->string('ftp_login', 30)->nullable();
-            $table->string('ftp_password', 255)->nullable();
-            $table->string('db_server', 50)->nullable();
-            $table->string('db_name', 30)->nullable();
-            $table->string('db_login', 30)->nullable();
-            $table->string('db_password', 255)->nullable();
-            $table->string('comment', 255)->nullable();
+            $table->longText('title');
+            $table->longText('site_url');
+            $table->longText('admin_panel_url');
+            $table->longText('admin_panel_login');
+            $table->longText('admin_panel_password');
+            $table->longText('ftp_server')->nullable();
+            $table->longText('ftp_login')->nullable();
+            $table->longText('ftp_password')->nullable();
+            $table->longText('db_server')->nullable();
+            $table->longText('db_name')->nullable();
+            $table->longText('db_login')->nullable();
+            $table->longText('db_password')->nullable();
+            $table->longText('comment')->nullable();
             $table->timestamps();
         });
     }

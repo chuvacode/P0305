@@ -15,6 +15,8 @@
     "site.update": "http://api.p0305.loc:80/api\/dashboard\/site\/{site}",
     "site.destroy": "http://api.p0305.loc:80/api\/dashboard\/site\/{site}",
     "api.screenshot": "http://api.p0305.loc:80/api\/dashboard\/srceenshot",
+    "api.login": "http://api.p0305.loc:80/api\/login",
+    "api.get-user": "http://api.p0305.loc:80/api\/get-user",
     "home": "\/",
     "dashboard": "dashboard",
     "dashboard.host": "dashboard\/host",
@@ -24,5 +26,6 @@
     "dashboard.site.show": "dashboard\/site\/show\/{id}",
     "dashboard.site.edit": "dashboard\/site\/edit\/{id}",
     "dashboard.other": "dashboard\/other",
-    "dashboard.report": "dashboard\/report"
+    "dashboard.report": "dashboard\/report",
+    "login": "login"
 }

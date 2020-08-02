@@ -365,8 +365,6 @@ export default {
 }
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-
 <style scoped>
   .multiselect--above .multiselect__content-wrapper {
     max-width: 283px!important;

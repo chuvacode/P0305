@@ -1,5 +1,5 @@
 import route from '@/router/route'
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   state: {
@@ -7,7 +7,7 @@ export default {
   },
   actions: {
     GET_ALL_SITES_FROM_API (context) { // Получает полный список с доступами к сайтам
-      return axios.get(route('site.index'))
+      return window.api.call('get', route('site.index'))
         .then(response => {
           context.commit('UPDATE_ALL_SITES', response.data.data.availables)
         })
@@ -17,7 +17,7 @@ export default {
         })
     },
     DESTROY_SITE_BY_ID ({ dispatch }, id) {
-      return axios.delete(route('site.destroy', [id]))
+      return window.api.call('delete', route('site.destroy', [id]))
         .then(response => {
           dispatch('GET_ALL_SITES_FROM_API')
           window.newToast('Успешно удалено', 'success', 3)
@@ -28,7 +28,7 @@ export default {
         })
     },
     ADD_SITE ({ dispatch }, formdata) {
-      return axios.post(route('site.store'), formdata)
+      return window.api.call('post', route('site.store'), formdata)
         .then((response) => {
           dispatch('GET_ALL_SITES_FROM_API')
           window.newToast('Успешно добавлено', 'success', 3)

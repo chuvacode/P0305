@@ -15,14 +15,14 @@ class CreateAccessHostsTable extends Migration
     {
         Schema::create('access_hosts', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 50);
-            $table->string('link_sign_in', 255);
-            $table->string('host_login', 30);
-            $table->string('host_password', 255);
-            $table->string('ftp_server', 30)->nullable();
-            $table->string('ftp_login', 30)->nullable();
-            $table->string('ftp_password', 255)->nullable();
-            $table->string('comment', 255)->nullable();
+            $table->longText('title');
+            $table->longText('link_sign_in');
+            $table->longText('host_login');
+            $table->longText('host_password');
+            $table->longText('ftp_server')->nullable();
+            $table->longText('ftp_login')->nullable();
+            $table->longText('ftp_password')->nullable();
+            $table->longText('comment')->nullable();
             $table->timestamps();
         });
     }

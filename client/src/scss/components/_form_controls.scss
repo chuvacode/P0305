@@ -8,7 +8,7 @@ input[list]::-webkit-calendar-picker-indicator {
 }
 
 input.control_input {
-    background-color: #292929;
+    background-color: #292929!important;
     border: 2px solid #323232;
     box-sizing: border-box;
     border-radius: 4px;
@@ -25,6 +25,48 @@ input.control_input {
     }
 }
 
+//input:-webkit-autofill,
+//input:-webkit-autofill:hover,
+//input:-webkit-autofill:focus
+//input:-webkit-autofill {
+//
+//}
+
+input.control_input:-internal-autofill-selected {
+    //box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0), inset 0 0 0 100px #292929!important;
+    -webkit-appearance: none!important;
+    //background-color: #292929!important;
+    //background-image: none !important;
+    //color: $main-text !important;
+}
+
+input.invisibly {
+    background-color: transparent;
+    border: none;
+    box-sizing: border-box;
+    height: 100%;
+    max-height: 55px;
+    width: 100%;
+    color: $main-text;
+    padding: 20px 30px 23px 20px;
+    font-size: 18px;
+    margin: 0;
+
+    &.error {
+        border-color: #B13737;
+        background-color: #3D2020;
+        &::-webkit-calendar-picker-indicator {
+            margin-left: 22px;
+        }
+    }
+
+    &:focus {
+        outline: none;
+        //border: 1px solid #4D90FE;
+    }
+
+}
+
 // Textarea
 textarea.control_textarea {
     background: #292929;
@@ -38,12 +80,14 @@ textarea.control_textarea {
     height: 100%;
 }
 
-input.control_input:focus, textarea.control_textarea:focus
-{
+.search > input:focus {
     outline: none;
     border: 2px solid #4D90FE;
 }
 
+input.control_input:focus, textarea.control_textarea:focus {
+
+}
 
 // Group Input Label
 .form_control_input_and_label {
@@ -170,3 +214,9 @@ input.control_input:focus, textarea.control_textarea:focus
         background-color: darker($accent-1, 1);
     }
 }
+
+#btn_auth.button-1 {
+    border-radius: 0px 0px 4px 4px;
+    height: 56.77px;
+}
+
