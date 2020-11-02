@@ -42,6 +42,9 @@ body {
 header  {
     background-color: $section-bg-2;
     padding: 15px 0;
+    height: 55px;
+    display: flex;
+    align-items: center;
 
     .cabinet {
         margin-left: auto;
@@ -60,6 +63,8 @@ a {
 }
 
 main {
+    height: calc(100vh - 55px);
+
     .container-fluid {
         max-height: 859px;
         overflow: auto;
@@ -417,8 +422,8 @@ html.js .loader .loader_inner {
 }
 
 .avatar {
-    height: 48px;
-    width: 48px;
+    height: 40px;
+    width: 40px;
     background-repeat: no-repeat;
     //background-size: contain;
     background-position: center;
@@ -426,11 +431,11 @@ html.js .loader .loader_inner {
 }
 
 .user_name {
-    margin-left: 20px;
+    margin-left: 15px;
     font-family: HelveticaNeueCyr;
     font-style: normal;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 18px;
     color: $main-text;
 }

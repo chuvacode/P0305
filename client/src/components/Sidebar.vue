@@ -93,6 +93,15 @@ export default {
 
       return window.location.href === url
     },
+    /* cdcheckCurrentItem () {
+      if (childs !== []) {
+        for (const key in childs) {
+          if (window.location.href === childs[key].url) return true
+        }
+      }
+
+      return window.location.href === url
+    }, */
     toggleMenuItem (key) {
       this.menu[key].open = !this.menu[key].open
     },

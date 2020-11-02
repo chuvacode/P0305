@@ -69,6 +69,6 @@ export default {
 <style scoped>
   /*[ma_calendar]*/
   .password-cell {
-    font-size: 10px;
+    font-size: 14px;
   }
 </style>

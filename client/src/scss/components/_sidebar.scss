@@ -2,9 +2,9 @@
 .nav_sidebar {
     transition: all 1s ease;
     background-color: $section-bg-2;
-    height: calc(100vh - 80px);
-    width: 280px;
-    min-width: 280px;
+    height: calc(100vh - 40px);
+    width: 250px;
+    min-width: 250px;
     display: flex;
     flex-direction: column;
 
@@ -113,14 +113,14 @@
 .close_sidebar {
     cursor: pointer;
     display: flex;
-    width: 42px;
-    height: 33px;
+    width: 24px;
+    height: 18px;
     position: relative;
     //transition: all 1s ease;
 
     &:before, &:after, & > span {
         position: absolute;
-        height: 3px;
+        height: 2px;
         background-color: #fff;
         width: 100%;
         transition: all .5s ease;
@@ -129,6 +129,7 @@
 
     &:before, &:after {
         content: "";
+        transform: scale(0.999);
     }
 
     &:before {
@@ -141,7 +142,7 @@
 
     & > span {
         top: 50%;
-        transform: translate(0, -37%);
+        transform: translate(0, -1px);
     }
 }
 
