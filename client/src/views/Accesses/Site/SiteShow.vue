@@ -1,5 +1,8 @@
 <template>
   <div class="container-fluid container_access w-100">
+    <vue-headful
+      title="Просмотр: Сайт"
+    />
     <div class="panel_line">
       <h3>Просмотр: {{ site.title + ' #' + id }} <a class="link" v-if="this.site.host !== null && this.site.host !== undefined " :href="host_link">( {{ host_title }} )</a></h3>
       <div class="right ml-auto">
@@ -105,7 +108,7 @@
 </template>
 
 <script>
-
+import VueHeadful from 'vue-headful'
 import route from '@/router/route'
 
 export default {
@@ -175,6 +178,7 @@ export default {
     }
   },
   components: {
+    VueHeadful
   }
 }
 </script>

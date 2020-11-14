@@ -1,5 +1,8 @@
 <template>
   <div class="container-fluid container_access w-100">
+    <vue-headful
+      title="Просмотр: Хостинг"
+    />
     <div class="panel_line">
       <h3>Просмотр: {{ host.title + ' #' + id }}</h3>
       <div class="right ml-auto">
@@ -69,6 +72,7 @@
 <script>
 
 import route from '@/router/route'
+import VueHeadful from 'vue-headful'
 
 export default {
   name: 'HostShow',
@@ -117,6 +121,7 @@ export default {
     }
   },
   components: {
+    VueHeadful
   }
 }
 </script>

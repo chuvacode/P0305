@@ -16,10 +16,12 @@ class CreateAccessOthersTable extends Migration
         Schema::create('access_others', function (Blueprint $table) {
             $table->id();
             $table->longText('title');
-            $table->longText('login');
+            $table->longText('login')->nullable();
             $table->longText('password');
+            $table->longText('email')->nullable();
             $table->longText('phone')->nullable();
             $table->longText('comment')->nullable();
+            $table->longText('link_sign_in')->nullable();
             $table->timestamps();
         });
     }

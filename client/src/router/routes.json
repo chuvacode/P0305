@@ -14,6 +14,13 @@
     "site.edit": "http://api.p0305.loc:80/api\/dashboard\/site\/{site}\/edit",
     "site.update": "http://api.p0305.loc:80/api\/dashboard\/site\/{site}",
     "site.destroy": "http://api.p0305.loc:80/api\/dashboard\/site\/{site}",
+    "other.index": "http://api.p0305.loc:80/api\/dashboard\/other",
+    "other.create": "http://api.p0305.loc:80/api\/dashboard\/other\/create",
+    "other.store": "http://api.p0305.loc:80/api\/dashboard\/other",
+    "other.show": "http://api.p0305.loc:80/api\/dashboard\/other\/{other}",
+    "other.edit": "http://api.p0305.loc:80/api\/dashboard\/other\/{other}\/edit",
+    "other.update": "http://api.p0305.loc:80/api\/dashboard\/other\/{site}",
+    "other.destroy": "http://api.p0305.loc:80/api\/dashboard\/other\/{other}",
     "api.screenshot": "http://api.p0305.loc:80/api\/dashboard\/srceenshot",
     "api.login": "http://api.p0305.loc:80/api\/login",
     "api.get-user": "http://api.p0305.loc:80/api\/get-user",
@@ -26,6 +33,8 @@
     "dashboard.site.show": "dashboard\/site\/show\/{id}",
     "dashboard.site.edit": "dashboard\/site\/edit\/{id}",
     "dashboard.other": "dashboard\/other",
+    "dashboard.other.show": "dashboard\/other\/show\/{id}",
+    "dashboard.other.edit": "dashboard\/other\/edit\/{id}",
     "dashboard.report": "dashboard\/report",
     "login": "login"
 }

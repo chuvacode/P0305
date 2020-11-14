@@ -22,8 +22,8 @@ export default {
     isContextVisibility: false
   }),
   computed: {
-    routeShow () { return route('dashboard.site.show', [this.row.id]) },
-    routeEdit () { return route('dashboard.site.edit', [this.row.id]) }
+    routeShow () { return route('dashboard.other.show', [this.row.id]) },
+    routeEdit () { return route('dashboard.other.edit', [this.row.id]) }
   },
   props: [
     'row'
@@ -42,11 +42,10 @@ export default {
     filteredCells (row) {
       return {
         title: row.title,
-        admin_panel_login: row.admin_panel_login,
-        admin_panel_password: row.admin_panel_password,
-        ftp_server: row.ftp_server,
-        ftp_login: row.ftp_login,
-        ftp_password: row.ftp_password,
+        email: row.email,
+        login: row.login,
+        password: row.password,
+        phone: row.phone,
         comment: row.comment
       }
     },

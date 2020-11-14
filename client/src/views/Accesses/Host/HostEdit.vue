@@ -1,5 +1,8 @@
 <template>
   <div class="container-fluid container_access w-100">
+    <vue-headful
+      title="Редактирование: Хостинг"
+    />
     <div class="panel_line">
       <h3>Редактирование: {{ host.title + ' #' + id }}</h3>
       <div class="right ml-auto">
@@ -104,6 +107,7 @@
 </template>
 
 <script>
+import VueHeadful from 'vue-headful'
 import route from '@/router/route'
 
 import { required, requiredIf, url } from 'vuelidate/lib/validators'
@@ -223,6 +227,7 @@ export default {
     }
   },
   components: {
+    VueHeadful
   }
 }
 </script>

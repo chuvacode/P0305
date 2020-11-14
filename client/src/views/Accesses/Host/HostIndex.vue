@@ -1,5 +1,8 @@
 <template>
   <div class="container-fluid container_access w-100">
+    <vue-headful
+      title="Перечень: Хостинг"
+    />
     <div class="panel_line">
       <h3>Хостинги</h3>
       <div class="right ml-auto">
@@ -17,6 +20,7 @@
 </template>
 
 <script>
+import VueHeadful from 'vue-headful'
 import HostTable from '@/components/Tables/Host/HostTable'
 import Search from '@/components/Search'
 import FormAddHostModal from '@/components/Modals/FormAddHost'
@@ -31,7 +35,7 @@ export default {
     }
   },
   components: {
-    HostTable, Search, FormAddHostModal
+    HostTable, Search, FormAddHostModal, VueHeadful
   },
   methods: {
     ...mapActions(['getAllHosts']),

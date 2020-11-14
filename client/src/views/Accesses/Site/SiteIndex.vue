@@ -1,5 +1,8 @@
 <template>
   <div class="container-fluid container_access w-100">
+    <vue-headful
+      title="Перечень: Сайт"
+    />
     <div class="panel_line">
       <h3>Сайты</h3>
       <div class="right ml-auto">
@@ -16,6 +19,7 @@
 </template>
 
 <script>
+import VueHeadful from 'vue-headful'
 import SiteTable from '@/components/Tables/Site/SiteTable'
 import Search from '@/components/Search'
 import FormAddSiteModal from '@/components/Modals/FormAddSite'
@@ -32,7 +36,7 @@ export default {
     }
   },
   components: {
-    SiteTable, Search, FormAddSiteModal
+    SiteTable, Search, FormAddSiteModal, VueHeadful
   },
   methods: {
   }

@@ -64,7 +64,20 @@ const routes = [
     path: route('dashboard.other'),
     name: 'dashboard.other',
     meta: { layout: 'dashboard', middlewareAuth: true },
-    component: () => import('../views/Accesses/Host/HostIndex')
+    component: () => import('../views/Accesses/Other/OtherIndex')
+  },
+  { // Просмотр: Другое
+    path: route('dashboard.other.show') + ':id',
+    name: 'dashboard.other.show',
+    props: true,
+    meta: { layout: 'dashboard', middlewareAuth: true },
+    component: () => import('../views/Accesses/Other/OtherShow')
+  },
+  { // Редактирование: Другое
+    path: route('dashboard.other.edit') + ':id',
+    name: 'dashboard.other.edit',
+    meta: { layout: 'dashboard', middlewareAuth: true },
+    component: () => import('../views/Accesses/Other/OtherEdit')
   },
   { // Отчеты
     path: route('dashboard.report'),

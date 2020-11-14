@@ -20,7 +20,7 @@
                   </div>
                 </div>
                 <div class="form_control_input_and_label" :class="{'error': $v.link_sign_in.$error}">
-                  <label for="input_title">Страница авторизации:</label>
+                  <label for="input_link_sign_in">Страница авторизации:</label>
                   <div class="form_control_container_input">
                     <input class="control_input" :class="{'error': $v.link_sign_in.$error}" id="input_link_sign_in" type="text"  list="names"
                            v-model="link_sign_in" @change="$v.link_sign_in.$touch()">
@@ -110,7 +110,6 @@
 import { required, requiredIf, url } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
 import route from '@/router/route'
-
 export default {
   name: 'FormAddHost',
   data: () => ({

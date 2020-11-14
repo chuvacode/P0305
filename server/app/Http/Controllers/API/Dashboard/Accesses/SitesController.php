@@ -224,12 +224,16 @@ class SitesController extends Controller
      */
     public function destroy($id)
     {
+
         if (!$site = AccessSite::find($id))
             return $this->responseJSON(404, 'Not found');
 
         // Удаление связи с хостингом, если есть
-        if (($link = LinkSiteToHost::where('site_id', $site->id)->get())->toArray() !== [])
+//        if (($link = LinkSiteToHost::where('site_id', $site->id)->get())->toArray() !== [])
+//            $link->delete();
+        if ((($link = LinkSiteToHost::where('site_id', $site->id))->get())->toArray() !== [])
             $link->delete();
+
 
         // Удаление сайта
         if ($site->delete())

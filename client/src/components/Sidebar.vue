@@ -38,7 +38,7 @@ export default {
       Доступы: {
         type: 'category',
         open: 'true',
-        children: ['Хостинги', 'Сайты'],
+        children: ['Хостинги', 'Сайты', 'Другое'],
         url: '#'
       },
       Хостинги: {
@@ -48,14 +48,11 @@ export default {
       Сайты: {
         type: 'child',
         url: route('dashboard.site')
+      },
+      Другое: {
+        type: 'child',
+        url: route('dashboard.other')
       }
-
-      // },
-      // Другое: {
-      //   type: 'child',
-      //   url: route('dashboard.other')
-      // }
-      // },
       // Отчеты: {
       //   type: 'page',
       //   url: route('dashboard.report')

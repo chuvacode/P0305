@@ -14,7 +14,9 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSeeder::class);
          $this->call(AccessHost::class);
          $this->call(AccessSite::class);
+         $this->call(AccessOther::class);
          $this->call(Client::class);
+         $this->call(Users::class);
          $this->call(LinkSiteToHost::class);
     }
 }
