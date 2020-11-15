@@ -36,5 +36,6 @@
     "dashboard.other.show": "dashboard\/other\/show\/{id}",
     "dashboard.other.edit": "dashboard\/other\/edit\/{id}",
     "dashboard.report": "dashboard\/report",
-    "login": "login"
+    "login": "login",
+    "account.personal": "account\/personal"
 }

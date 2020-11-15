@@ -84,6 +84,12 @@ const routes = [
     name: 'dashboard.report',
     meta: { layout: 'dashboard', middlewareAuth: true },
     component: () => import('../views/Accesses/Host/HostIndex')
+  },
+  { // Страница редактирования персонала
+    path: route('account.personal'),
+    name: 'personal',
+    meta: { layout: 'dashboard', middlewareAuth: true },
+    component: () => import('../views/account/personal')
   }
 ]
 
