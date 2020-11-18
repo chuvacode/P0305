@@ -15,7 +15,15 @@ class Users extends Seeder
             'name' => 'Чуваков Алексей',
             'email' => 'aleksey.chuv@yandex.ru',
             'password' => Hash::make('hlinak123'),
+            'privilege' => 'administrator',
             'avatar_url' => '/images/avatar.png'
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Иван Иванов',
+            'email' => 'ivan@yandex.ru',
+            'password' => Hash::make('hlinak123'),
+            'privilege' => 'worker'
         ]);
     }
 }

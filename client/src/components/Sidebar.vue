@@ -52,6 +52,10 @@ export default {
       Другое: {
         type: 'child',
         url: route('dashboard.other')
+      },
+      'Управление персоналом': {
+        type: 'page',
+        url: route('dashboard.personal')
       }
       // Отчеты: {
       //   type: 'page',

@@ -17,14 +17,14 @@
 </template>
 
 <script>
-import Row from '@/components/Tables/Site/SiteRow'
+import Row from '@/components/Tables/Personal/PersonalRow'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'SiteTable',
+  name: 'PersonalTable',
   data: function () {
     return {
-      dataTableSites: [], // Данные из таблицы
+      dataTablePersonal: [], // Данные из таблицы
       activeCell: null, // DOM активного поля
       activeCellIndex: null, // Индекс активного поля
       cellHoverIndex: null, // Индекс поля, на котором указатель
@@ -38,11 +38,11 @@ export default {
   ],
   mounted () {
     // Получение данных для таблицы
-    this.GET_ALL_SITES_FROM_API()
+    this.GET_ALL_PERSONAL_FROM_API()
   },
   methods: {
     ...mapActions([
-      'GET_ALL_SITES_FROM_API'
+      'GET_ALL_PERSONAL_FROM_API'
     ]),
     handleConfirmResponse (status) {
       this.isVisibilityConfirmForm = false
@@ -66,21 +66,19 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'GET_ALL_SITES'
+      'GET_ALL_PERSONAL'
     ]),
     accessesDataTable: function () {
       const newArray = []
 
       const searchQ = this.search.toLowerCase()
-      this.GET_ALL_SITES.filter((item) => {
+      this.GET_ALL_PERSONAL.filter((item) => {
         const currentRow = item
         // const searchString = currentRow.name + currentRow.ftp_server + currentRow.host_login + currentRow.comment + currentRow.ftp_login
 
-        if ((currentRow.title && currentRow.title.toLowerCase().indexOf(searchQ) !== -1) ||
-            (currentRow.ftp_server && currentRow.ftp_server.toLowerCase().indexOf(searchQ) !== -1) ||
-            (currentRow.admin_panel_login && currentRow.admin_panel_login.toLowerCase().indexOf(searchQ) !== -1) ||
-            (currentRow.comment && currentRow.comment.toLowerCase().indexOf(searchQ) !== -1) ||
-            (currentRow.ftp_login && currentRow.ftp_login.toLowerCase().indexOf(searchQ) !== -1)) {
+        if ((currentRow.name && currentRow.name.toLowerCase().indexOf(searchQ) !== -1) ||
+            (currentRow.email && currentRow.email.toLowerCase().indexOf(searchQ) !== -1) ||
+            (currentRow.privilege && currentRow.privilege.toLowerCase().indexOf(searchQ) !== -1)) {
           newArray.push(currentRow)
         }
       })

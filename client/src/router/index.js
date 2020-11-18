@@ -86,10 +86,10 @@ const routes = [
     component: () => import('../views/Accesses/Host/HostIndex')
   },
   { // Страница редактирования персонала
-    path: route('account.personal'),
+    path: route('dashboard.personal'),
     name: 'personal',
     meta: { layout: 'dashboard', middlewareAuth: true },
-    component: () => import('../views/account/personal')
+    component: () => import('../views/Account/Personal')
   }
 ]
 

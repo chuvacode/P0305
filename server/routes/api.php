@@ -36,6 +36,9 @@ Route::middleware('auth:api')->group(function () {
         // Сайты
         Route::resource('other', 'Accesses\OthersController');
 
+        // Сотрудники
+        Route::resource('personal', 'Account\UserController');
+
         // Screenshot
         Route::get('srceenshot', 'ScreenshotController@screenshot');
     //    Route::get('srceenshot/{site}', 'ScreenshotController@screenshot');

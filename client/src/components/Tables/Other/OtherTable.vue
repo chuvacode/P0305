@@ -79,7 +79,6 @@ export default {
           newArray.push(currentRow)
         }
       })
-
       return newArray
     }
   },

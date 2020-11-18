@@ -94,16 +94,13 @@
                     </button>
                   </div>
                 </div>
-                <div class="d-flex">
-
-                </div>
               </div>
             </form>
           </div>
         </div>
       </transition>
       <transition name="overlay">
-        <div v-if="isVisibility" @click="clearForm" class="overlay_bg"></div> <!--handleClose-->
+        <div v-if="isVisibility" @click="handleClose" class="overlay_bg"></div>
       </transition>
     </div>
   </transition>

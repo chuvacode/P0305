@@ -9,7 +9,6 @@
 
           <div v-if="isOpenCabinetMenu" class="cabinet_container_menu">
             <ul class="cabinet_menu">
-              <router-link tag="li" :to="getLinkPersonal">Управление персоналом</router-link>
               <li @click="logout">Выход</li>
             </ul>
           </div>
@@ -35,7 +34,6 @@
 import Toast from '@/utils/toast/toast'
 import Sidebar from '@/components/Sidebar'
 import ConfirmForm from '@/components/Modals/ConfirmForm'
-import route from '@/router/route'
 
 export default {
   name: 'Dashboard',
@@ -54,11 +52,6 @@ export default {
     },
     logout () {
       window.auth.logout()
-    }
-  },
-  computed: {
-    getLinkPersonal () {
-      return route('account.personal')
     }
   },
   mounted () {

@@ -37,5 +37,14 @@
     "dashboard.other.edit": "dashboard\/other\/edit\/{id}",
     "dashboard.report": "dashboard\/report",
     "login": "login",
-    "account.personal": "account\/personal"
+    "dashboard.personal": "dashboard\/personal",
+    "dashboard.personal.show": "dashboard\/personal\/show\/{id}",
+    "dashboard.personal.edit": "dashboard\/personal\/edit\/{id}",
+    "personal.index": "http://api.p0305.loc:80/api\/dashboard\/personal",
+    "personal.create": "http://api.p0305.loc:80/api\/dashboard\/personal\/create",
+    "personal.store": "http://api.p0305.loc:80/api\/dashboard\/personal",
+    "personal.show": "http://api.p0305.loc:80/api\/dashboard\/personal\/{personal}",
+    "personal.edit": "http://api.p0305.loc:80/api\/dashboard\/personal\/{personal}\/edit",
+    "personal.update": "http://api.p0305.loc:80/api\/dashboard\/personal\/{personal}",
+    "personal.destroy": "http://api.p0305.loc:80/api\/dashboard\/personal\/{personal}"
 }
