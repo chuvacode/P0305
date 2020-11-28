@@ -14,7 +14,7 @@ class Users extends Seeder
         DB::table('users')->insert([
             'name' => 'Чуваков Алексей',
             'email' => 'aleksey.chuv@yandex.ru',
-            'password' => Hash::make('hlinak123'),
+            'password' => Hash::make('admin'),
             'privilege' => 'administrator',
             'avatar_url' => '/images/avatar.png'
         ]);
@@ -22,7 +22,7 @@ class Users extends Seeder
         DB::table('users')->insert([
             'name' => 'Иван Иванов',
             'email' => 'ivan@yandex.ru',
-            'password' => Hash::make('hlinak123'),
+            'password' => Hash::make('user'),
             'privilege' => 'worker'
         ]);
     }

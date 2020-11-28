@@ -4,7 +4,9 @@
         <td style="position:relative;" @mouseover="handleOverActionCell" @mouseleave="handleLeaveActionCell">
             <div v-if="isContextVisibility" class="context_menu" @mouseover="isContextVisibility = true" @mouseleave="isContextVisibility = false">
                 <a :href="routeShow">Подробнее</a>
-                <a :href="routeEdit">Изменить</a>
+                <a href="/" @click.prevent="startEdit">
+                  Изменить
+                </a>
                 <a href="#" @click.prevent="handleDestroy">Удалить</a>
                 <span class="left"></span>
             </div>
@@ -20,11 +22,11 @@ import { mapActions } from 'vuex'
 export default {
   name: 'PersonalRow',
   data: () => ({
-    isContextVisibility: false
+    isContextVisibility: false,
+    isVisibilityFormEditPersonal: false
   }),
   computed: {
-    routeShow () { return route('dashboard.personal.show', [this.row.id]) },
-    routeEdit () { return route('dashboard.personal.edit', [this.row.id]) }
+    routeShow () { return route('dashboard.personal.show', [this.row.id]) }
   },
   props: [
     'row'
@@ -32,6 +34,7 @@ export default {
   methods: {
     ...mapActions([
       'START_CONFIRM_FORM',
+      'START_PERSONAL_EDIT_FORM',
       'DESTROY_SITE_BY_ID'
     ]),
     handleDestroy () {
@@ -53,6 +56,9 @@ export default {
     },
     setCurrentCellHover (row, column) {
       this.cellHoverIndex = [row, column]
+    },
+    startEdit () {
+      this.START_PERSONAL_EDIT_FORM(this.row.id)
     }
   },
   components: {

@@ -7,9 +7,9 @@ export default {
     CONFIRM_PAYLOAD: null
   },
   actions: {
-    START_CONFIRM_FORM (context, payload) {
-      context.commit('UPDATE_CONFIRM_PAYLOAD', payload)
-      context.commit('UPDATE_IS_VISIBILITY_CONFIRM_FORM', true)
+    START_CONFIRM_FORM ({ commit }, payload) {
+      commit('UPDATE_CONFIRM_PAYLOAD', payload)
+      commit('UPDATE_IS_VISIBILITY_CONFIRM_FORM', true)
     },
     TOGGLE_CONFIRM_FORM ({ commit, state }) {
       commit('UPDATE_IS_VISIBILITY_CONFIRM_FORM', !state.IS_VISIBILITY_CONFIRM_FORM)
@@ -18,7 +18,6 @@ export default {
       if (status) {
         state.CONFIRM_PAYLOAD()
       }
-
       dispatch('TOGGLE_CONFIRM_FORM')
       commit('UPDATE_CONFIRM_PAYLOAD', null)
     }

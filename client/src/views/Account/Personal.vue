@@ -13,8 +13,10 @@
       </div>
     </div>
     <personal-table :search="search" ref="table"></personal-table>
-    <form-add-personal-modal :isVisibility="isVisibilityFormAddPersonal"
-                         @close="isVisibilityFormAddPersonal = false"></form-add-personal-modal>
+    <form-add-personal-modal :isVisibility="isVisibilityFormAddPersonal" @close="isVisibilityFormAddPersonal = false">
+    </form-add-personal-modal>
+    <form-edit-personal-modal :isVisibility="isVisibilityFormEditPersonal" @close="isVisibilityFormEditPersonal = false">
+    </form-edit-personal-modal>
   </div>
 </template>
 
@@ -23,20 +25,21 @@ import VueHeadful from 'vue-headful'
 import PersonalTable from '@/components/Tables/Personal/PersonalTable'
 import Search from '@/components/Search'
 import FormAddPersonalModal from '@/components/Modals/FormAddPersonal'
-
+import FormEditPersonalModal from '../../components/Modals/FormEditPersonal'
 export default {
   name: 'SiteIndex',
   data: function () {
     return {
       search: '',
       isVisibilityFormAddPersonal: false,
+      isVisibilityFormEditPersonal: false,
       host: '',
       options: ['jino', 'nic', 'reg'],
       selectLabel: ''
     }
   },
   components: {
-    PersonalTable, Search, VueHeadful, FormAddPersonalModal
+    PersonalTable, Search, VueHeadful, FormAddPersonalModal, FormEditPersonalModal
   },
   methods: {
   }
