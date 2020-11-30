@@ -94,7 +94,7 @@ export default {
     getSreenshot () {
       this.axios.get(route('api.screenshot'), {
         params: {
-          url: this.other.title
+          url: this.other.link_sign_in
         }
       })
         .then(response => {

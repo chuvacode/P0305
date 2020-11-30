@@ -86,9 +86,14 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        //
+        if ($user = User::find($id)) {
+            return $this->responseJSON(200, 'Success found', [
+                'content' => $user->toArray()
+            ]);
+        }
+        return $this->responseJSON(404, 'Not found');
     }
 
     /**
@@ -98,9 +103,36 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+
+        if ( $user === null ) return $this->responseJSON(404, 'Not found');
+
+        $data = $request->all();
+
+        // Проверяем полученные данные
+        $validator = Validator::make($data, [
+            'name' => 'nullable|max:50',
+            'privilege' => 'nullable|max:30',
+            'email' => 'nullable|max:100'
+        ]);
+
+        // Проверяем результат валидации
+        if ($validator->fails()) {
+            $errors = array_map(function ($error) {
+                return is_array($error) ? $error[0] : $error;
+            }, $validator->errors()->toArray());
+
+            return $this->responseJSON(422, 'Unprocessable entity', $errors);
+        }
+
+        // Шифрование
+//        $data = $this->encryptCollection($data);
+
+        $user->update($data);
+
+        return $this->responseJSON(200, 'OK', $data);
     }
 
     /**

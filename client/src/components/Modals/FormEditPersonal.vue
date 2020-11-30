@@ -2,22 +2,22 @@
   <transition name="modal">
     <div v-show="GET_IS_VISIBILITY_PERSONAL_EDIT_FORM" class="modal_container">
       <transition name="modal_form">
-        <div v-show="isVisibility" class="modal_form" style="min-height: 355px;">
+        <div v-show="GET_IS_VISIBILITY_PERSONAL_EDIT_FORM" class="modal_form" style="min-height: 355px;">
           <div class="modal_header">
-            <h3>Форма добавления</h3>
-            <div class="modal_close" @click.prevent="handleClose"></div>
+            <h3>Форма редактирования</h3>
+            <div class="modal_close" @click.prevent="CLOSE_PERSONAL_EDIT_FORM"></div>
           </div>
           <div class="modal_content">
             <form action="" class="row" ref="form_add_host" @submit.prevent="handleSubmit">
               <div class="col-12 d-flex flex-column">
                 <div class="d-flex">
                   <!-- Поле для ввода заголовка -->
-                  <div class="form_control_input_and_label col-6" :class="{'error': $v.name.$error}">
-                    <label for="input_name">Имя пользователя:</label>
+                  <div class="form_control_input_and_label col-6" :class="{'error': $v.username.$error}">
+                    <label for="form_edit_personal_input_username">Имя пользователя:</label>
                     <div class="form_control_container_input">
-                      <input class="control_input" :class="{'error': $v.name.$error}" id="input_name" type="text"
-                             v-model="name" @change="$v.name.$touch()">
-                      <div v-if="!$v.name.required" class="error_notice"
+                      <input class="control_input" :class="{'error': $v.username.$error}" id="form_edit_personal_input_username" type="text"
+                             v-model="username" @change="$v.username.$touch()">
+                      <div v-if="!$v.username.required" class="error_notice"
                            tooltip="Это поле обязательно для заполнения"></div>
                     </div>
                   </div>
@@ -26,8 +26,8 @@
                     <div class="form_control_input_and_label">
                       <label>Привилегия</label>
                       <div class="form_control_container_input">
-                        <multiselect v-model="privilege" track-by="name" label="label"
-                                     :options="GET_PRIVILEGES"
+                        <multiselect v-model="privilege" track-by="name" label="label" value="name"
+                                     :options="GET_LIST_PRIVILEGES_PERSONAL_EDIT_FORM"
                                      :selectLabel="'Выбрать'"
                                      :deselectLabel="''"
                                      :selectedLabel="''"
@@ -44,9 +44,9 @@
                 <div class="d-flex">
                   <!-- Поле для ввода почты -->
                   <div class="form_control_input_and_label col-6" :class="{'error': $v.email.$error}">
-                    <label for="input_email">Почта:</label>
+                    <label for="form_edit_personal_input_email">Почта:</label>
                     <div class="form_control_container_input">
-                      <input class="control_input" :class="{'error': $v.email.$error}" id="input_email" type="text"
+                      <input class="control_input" :class="{'error': $v.email.$error}" id="form_edit_personal_input_email" type="text"
                              v-model="email" @change="$v.email.$touch()" placeholder="youremail@mail.ru">
                       <div v-if="!$v.email.required" class="error_notice"
                            tooltip="Это поле обязательно для заполнения"></div>
@@ -54,22 +54,12 @@
                            tooltip="Почта указана не верно"></div>
                     </div>
                   </div>
-                  <!-- Поле для ввода пароля -->
-                  <div class="form_control_input_and_label col-6" :class="{'error': $v.password.$error}">
-                    <label for="input_password">Пароль:</label>
-                    <div class="form_control_container_input">
-                      <input class="control_input" :class="{'error': $v.password.$error}" id="input_password" type="text"
-                             v-model="password" @change="$v.password.$touch()">
-                      <div v-if="!$v.password.required" class="error_notice"
-                           tooltip="Это поле обязательно для заполнения"></div>
-                    </div>
-                  </div>
                 </div>
                 <div class="d-flex">
                   <div class="col-6"></div>
                   <div class="col-6 form_control_input_and_label">
                     <!-- Кнопка сохранения -->
-                    <button type="submit" class="button-1 mt-30" :disabled="submit_status === 'PENDING'">Сохранить
+                    <button type="submit" class="button-1 mt-30" :disabled="GET_SUBMIT_STATUS_PERSONAL_EDIT_FORM === 'PENDING'">Сохранить
                     </button>
                   </div>
 
@@ -80,7 +70,7 @@
         </div>
       </transition>
       <transition name="overlay">
-        <div v-if="isVisibility" @click="handleClose" class="overlay_bg"></div>
+        <div v-if="GET_IS_VISIBILITY_PERSONAL_EDIT_FORM" @click="CLOSE_PERSONAL_EDIT_FORM" class="overlay_bg"></div>
       </transition>
     </div>
   </transition>
@@ -88,89 +78,70 @@
 
 <script>
 import { required, email } from 'vuelidate/lib/validators'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'FormEditPersonal',
-  data: () => ({
-    name: '',
-    email: '',
-    privilege: '',
-    password: '',
-    submit_status: null
-  }),
   computed: {
     ...mapGetters([
-      'GET_IS_VISIBILITY_PERSONAL_EDIT_FORM'
+      'GET_IS_VISIBILITY_PERSONAL_EDIT_FORM',
+      'GET_SUBMIT_STATUS_PERSONAL_EDIT_FORM',
+      'GET_LIST_PRIVILEGES_PERSONAL_EDIT_FORM',
+      'GET_USERNAME_PERSONAL_EDIT_FORM',
+      'GET_EMAIL_PERSONAL_EDIT_FORM',
+      'GET_PRIVILEGE_PERSONAL_EDIT_FORM',
+      'GET_LIST_PRIVILEGES_PERSONAL_EDIT_FORM'
     ]),
-    GET_PRIVILEGES () {
-      return [
-        {
-          name: 'administrator',
-          label: 'Администатор'
-        },
-        {
-          name: 'worker',
-          label: 'Рабочий'
-        }
-      ]
-    }
-  },
-  props: [
-    'isVisibility'
-  ],
-  mounted () {
-    this.privilege = {
-      name: 'worker',
-      label: 'Рабочий'
+    username: {
+      get () {
+        return this.GET_USERNAME_PERSONAL_EDIT_FORM
+      },
+      set (data) {
+        this.UPDATE_USERNAME_PERSONAL_EDIT_FORM(data)
+      }
+    },
+    email: {
+      get () {
+        return this.GET_EMAIL_PERSONAL_EDIT_FORM
+      },
+      set (data) {
+        this.UPDATE_EMAIL_PERSONAL_EDIT_FORM(data)
+      }
+    },
+    privilege: {
+      get () {
+        return this.GET_PRIVILEGE_PERSONAL_EDIT_FORM
+      },
+      set (data) {
+        this.UPDATE_PRIVILEGE_PERSONAL_EDIT_FORM(data)
+      }
     }
   },
   methods: {
     ...mapActions([
-      'ADD_PERSONAL'
+      'CLOSE_PERSONAL_EDIT_FORM',
+      'SUBMIT_PERSONAL_EDIT_FORM'
     ]),
-    handleClose () {
-      this.$emit('close')
-    },
+    ...mapMutations([
+      'UPDATE_USERNAME_PERSONAL_EDIT_FORM',
+      'UPDATE_EMAIL_PERSONAL_EDIT_FORM',
+      'UPDATE_PRIVILEGE_PERSONAL_EDIT_FORM',
+      'UPDATE_SUBMIT_STATUS_PERSONAL_EDIT_FORM'
+    ]),
     handleSubmit () {
       this.$v.$touch()
       if (this.$v.$invalid) {
-        this.submit_status = 'ERROR'
+        this.UPDATE_SUBMIT_STATUS_PERSONAL_EDIT_FORM('ERROR')
       } else {
-        this.submit_status = 'PENDING'
-
-        const formData = new FormData()
-        formData.append('name', this.name)
-        formData.append('email', this.email)
-        formData.append('password', this.password)
-        formData.append('privilege', this.privilege.name)
-
-        this.ADD_PERSONAL(formData)
+        this.SUBMIT_PERSONAL_EDIT_FORM()
           .then(response => {
-            this.submit_status = 'OK'
-            this.handleClose()
-            this.clearForm()
-          })
-        // eslint-disable-next-line handle-callback-err
-          .catch(error => {
-            this.submit_status = 'ERROR'
-            window.newToast('Возникла ошибка', 'error', 3)
+            this.$v.$reset()
           })
       }
-    },
-    clearForm () {
-      this.name = ''
-      this.email = ''
-      this.password = ''
-      this.privilege = {
-        name: 'worker',
-        label: 'Рабочий'
-      }
-      this.$v.$reset()
     }
   },
   validations: {
-    name: {
+    username: {
       required
     },
     email: {
@@ -178,9 +149,6 @@ export default {
       email
     },
     privilege: {
-      required
-    },
-    password: {
       required
     }
   }

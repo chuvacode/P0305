@@ -1,10 +1,13 @@
 <template>
   <div class="position-relative overflow-hidden d-flex justify-content-center" style="height: 100vh;">
     <router-view />
+    <toast></toast>
   </div>
 </template>
 
 <script>
+import Toast from '@/utils/toast/toast'
+
 export default {
   name: 'Empty',
   data: () => ({
@@ -16,6 +19,9 @@ export default {
       this.authenticated = true
       this.user = window.auth.user
     })
+  },
+  components: {
+    Toast
   }
 }
 </script>

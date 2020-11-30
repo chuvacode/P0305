@@ -17,6 +17,15 @@ window.axios = axios
 window.api = new Api()
 window.auth = new Auth()
 
+// Регистрируем глобальную пользовательскую директиву `v-focus`
+Vue.directive('focus-if-not-empty', {
+  // Когда привязанный элемент вставлен в DOM...
+  inserted: function (el) {
+    // Переключаем фокус на элемент
+    if (el.value.trim() !== '') { el.focus() }
+  }
+})
+
 Vue.component('multiselect', Multiselect)
 Vue.use(Vuelidate)
 Vue.use(VueRouter)

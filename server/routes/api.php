@@ -49,6 +49,8 @@ Route::middleware('auth:api')->group(function () {
 // Auth
 Route::post('/register', 'API\Security\AuthController@register');
 Route::post('/login', 'API\Security\AuthController@login');
+Route::get('/user', 'API\Security\AuthController@index');
+
 
 
 

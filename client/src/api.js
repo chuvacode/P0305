@@ -10,7 +10,6 @@ class Api {
             window.auth.logout()
             return
           }
-
           reject(response)
         })
     })

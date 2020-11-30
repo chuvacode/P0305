@@ -47,8 +47,6 @@ class AuthController extends Controller
         return $this->responseJSON(201, 'Success');
     }
 
-
-
     public function login(Request $request)
     {
         // Извлекаем данные
@@ -168,5 +166,10 @@ class AuthController extends Controller
 
     public function getUser() {
         return auth()->user();
+    }
+
+    public function index(Request $request) {
+        $users = User::select(['id', 'name', 'email', 'avatar_url'])->get();
+        return $this->responseJSON(200, 'OK', ['content' => $users->toArray() ]);
     }
 }

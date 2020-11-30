@@ -4,7 +4,7 @@
       <div class="container-fluid d-flex align-items-center px-5">
         <span class="item_menu close_sidebar" :class="{hide: isOpenSidebar}" @click="handleToggleSidebar"><span></span></span>
         <div class="cabinet d-flex align-items-center" @mouseenter="isOpenCabinetMenu = true" @mouseleave="isOpenCabinetMenu = false">
-          <div class="avatar" style="background-image: url('/images/avatar.png');"></div>
+          <div class="avatar" :style="{'backgroundImage':`url('${user.avatar_url}')`}"></div>
           <span class="user_name">{{ user.name }}</span>
 
           <div v-if="isOpenCabinetMenu" class="cabinet_container_menu">

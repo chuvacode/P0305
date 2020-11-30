@@ -16,6 +16,9 @@ class ScreenshotController extends Controller
 //        header('Access-Control-Allow-Origin', 'http://localhost:3000');
 
         $url = $request->query('url');
+
+        $url = substr($url, 0, 4) != "http" ? "http://" . $url : $url;
+
         // Поиск в бд
         $screenshot = Screenshot::where('site', 'LIKE', $url)->get();
 
@@ -27,7 +30,7 @@ class ScreenshotController extends Controller
         }
 
         // вызов методов сервиса
-        $api_data = file_get_contents("https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://" . $url . "&screenshot=true");
+        $api_data = file_get_contents("https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=" . $url . "&screenshot=true");
         // расшифровка данных** json
         $api_data = json_decode($api_data, true);
 

@@ -27,7 +27,7 @@ import Search from '@/components/Search'
 import FormAddPersonalModal from '@/components/Modals/FormAddPersonal'
 import FormEditPersonalModal from '../../components/Modals/FormEditPersonal'
 export default {
-  name: 'SiteIndex',
+  name: 'PersonalIndex',
   data: function () {
     return {
       search: '',

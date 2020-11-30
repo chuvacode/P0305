@@ -18,7 +18,7 @@
           <div class="image" :style="{backgroundImage: 'url(' + screenshot + ')'}"></div>
         </a>
         <a class="preview_link" :href="site.admin_panel_url" target="_blank">
-          <span>Перейти к админ-панеле</span>
+          <span>Перейти к админ-панели</span>
           <div class="image" :style="{backgroundImage: 'url(' + screenshot_admin_panel + ')'}"></div>
         </a>
       </div>

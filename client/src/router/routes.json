@@ -24,6 +24,7 @@
     "api.screenshot": "http://api.p0305.loc:80/api\/dashboard\/srceenshot",
     "api.login": "http://api.p0305.loc:80/api\/login",
     "api.get-user": "http://api.p0305.loc:80/api\/get-user",
+    "api.user.index": "http://api.p0305.loc:80/api\/user",
     "home": "\/",
     "dashboard": "dashboard",
     "dashboard.host": "dashboard\/host",
