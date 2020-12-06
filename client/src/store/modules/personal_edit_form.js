@@ -30,12 +30,14 @@ export default {
       formData.append('name', state.USERNAME_PERSONAL_EDIT_FORM)
       formData.append('email', state.EMAIL_PERSONAL_EDIT_FORM)
       formData.append('privilege', state.PRIVILEGE_PERSONAL_EDIT_FORM.name)
+      formData.append('_method', 'PATCH')
 
-      return window.api.call('post', route('personal.update'), formData)
+      return window.api.call('post', route('personal.update', [state.ID_PERSONAL_EDIT_FORM]), formData)
         .then(response => {
           window.newToast('Успешно обновлено', 'success', 3)
           commit('UPDATE_SUBMIT_STATUS_PERSONAL_EDIT_FORM', 'OK')
           dispatch('CLOSE_PERSONAL_EDIT_FORM')
+          dispatch('GET_ALL_PERSONAL_FROM_API')
         })
         // eslint-disable-next-line handle-callback-err
         .catch(error => {

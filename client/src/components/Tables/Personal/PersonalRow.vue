@@ -3,8 +3,8 @@
         <cell v-for="(value, name) in filteredCells(row)" :key="name" :value="value" :name="name"></cell>
         <td style="position:relative;" @mouseover="handleOverActionCell" @mouseleave="handleLeaveActionCell">
             <div v-if="isContextVisibility" class="context_menu" @mouseover="isContextVisibility = true" @mouseleave="isContextVisibility = false">
-                <a :href="routeShow">Подробнее</a>
-                <a href="/" @click.prevent="startEdit">
+<!--                <a :href="routeShow">Подробнее</a>-->
+                <a hcontext_menuref="/" @click.prevent="startEdit">
                   Изменить
                 </a>
                 <a href="#" @click.prevent="handleDestroy">Удалить</a>
