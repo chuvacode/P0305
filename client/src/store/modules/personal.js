@@ -2,12 +2,14 @@ import route from '@/router/route'
 
 export default {
   state: {
-    ALL_PERSONAL: []
+    ALL_PERSONAL: [],
+    IS_LOAD_PERSONAL: true
   },
   actions: {
-    GET_ALL_PERSONAL_FROM_API ({ commit }) {
+    GET_ALL_PERSONAL_FROM_API ({ commit, state }) {
       return window.api.call('get', route('personal.index'))
         .then(response => {
+          state.IS_LOAD_PERSONAL = false
           commit('UPDATE_ALL_PERSONAL', response.data.data.content)
         })
         // eslint-disable-next-line handle-callback-err
@@ -41,11 +43,17 @@ export default {
   mutations: {
     UPDATE_ALL_PERSONAL (state, data) {
       state.ALL_PERSONAL = data
+    },
+    UPDATE_IS_LOAD_PERSONAL (state, data) {
+      state.IS_LOAD_PERSONAL = data
     }
   },
   getters: {
     GET_ALL_PERSONAL (state) {
       return state.ALL_PERSONAL
+    },
+    GET_IS_LOAD_PERSONAL (state) {
+      return state.IS_LOAD_PERSONAL
     }
   }
 }

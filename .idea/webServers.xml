@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="28cfb3bd-fcfc-478e-abc6-0bfc33628967" name="1" url="http://timax2001.myjino.ru">
+        <fileTransfer host="timax2001.myjino.ru" port="21" rootFolder="/domains/superliga.ko4ki.ru">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

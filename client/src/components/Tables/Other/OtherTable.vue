@@ -3,16 +3,19 @@
     <div class="table_access">
       <table>
         <thead>
-        <th>Наименование</th>
-        <th>E-mail</th>
-        <th>Логин</th>
-        <th>Пароль</th>
-        <th>Телефон</th>
-        <th>Комментарий</th>
-        <th></th>
+          <th>Наименование</th>
+          <th>E-mail</th>
+          <th>Логин</th>
+          <th>Пароль</th>
+          <th>Телефон</th>
+          <th>Комментарий</th>
+          <th></th>
         </thead>
         <tbody>
-        <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id"></row>
+          <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id"></row>
+          <tr>
+            <loader v-if="GET_IS_LOAD_OTHERS"></loader>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -20,6 +23,7 @@
 </template>
 
 <script>
+import Loader from '@/components/Tables/Loader'
 import Row from '@/components/Tables/Other/OtherRow'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -63,7 +67,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['GET_ALL_OTHERS']),
+    ...mapGetters([
+      'GET_ALL_OTHERS',
+      'GET_IS_LOAD_OTHERS'
+    ]),
     accessesDataTable: function () {
       const newArray = []
 
@@ -83,7 +90,7 @@ export default {
     }
   },
   components: {
-    Row
+    Row, Loader
   }
 }
 </script>

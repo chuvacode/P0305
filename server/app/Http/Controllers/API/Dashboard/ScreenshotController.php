@@ -13,8 +13,6 @@ class ScreenshotController extends Controller
     use ResponseJSON;
 
     public function screenshot(Request $request) {
-//        header('Access-Control-Allow-Origin', 'http://localhost:3000');
-
         $url = $request->query('url');
 
         $url = substr($url, 0, 4) != "http" ? "http://" . $url : $url;
@@ -31,6 +29,8 @@ class ScreenshotController extends Controller
 
         // вызов методов сервиса
         $api_data = file_get_contents("https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=" . $url . "&screenshot=true");
+//        $api_data = file_get_contents("http://s.wordpress.com/mshots/v1/s0.wp.com/mshots/v1/" . $url");
+//        $api_data = file_get_contents("https://www.s-shot.ru?" . $url);
         // расшифровка данных** json
         $api_data = json_decode($api_data, true);
 

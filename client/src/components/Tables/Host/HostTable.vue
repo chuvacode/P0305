@@ -3,17 +3,20 @@
     <div class="table_access">
       <table>
         <thead>
-        <th>Наименование</th>
-        <th>Логин</th>
-        <th>Пароль</th>
-        <th>FTP сервер</th>
-        <th>Логин</th>
-        <th>Пароль</th>
-        <th>Комментарий</th>
-        <th></th>
+          <th>Наименование</th>
+          <th>Логин</th>
+          <th>Пароль</th>
+          <th>FTP сервер</th>
+          <th>Логин</th>
+          <th>Пароль</th>
+          <th>Комментарий</th>
+          <th></th>
         </thead>
         <tbody>
-        <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id"></row>
+          <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id"></row>
+          <tr>
+            <loader v-if="GET_IS_LOAD_HOSTS"></loader>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -21,6 +24,7 @@
 </template>
 
 <script>
+import Loader from '@/components/Tables/Loader'
 import Row from '@/components/Tables/Host/HostRow'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -44,7 +48,9 @@ export default {
     this.GET_ALL_HOSTS_FROM_API()
   },
   methods: {
-    ...mapActions(['GET_ALL_HOSTS_FROM_API']),
+    ...mapActions([
+      'GET_ALL_HOSTS_FROM_API'
+    ]),
     handleConfirmResponse (status) {
       this.isVisibilityConfirmForm = false
       if (status) {
@@ -64,14 +70,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['GET_ALL_HOSTS']),
+    ...mapGetters([
+      'GET_ALL_HOSTS',
+      'GET_IS_LOAD_HOSTS'
+    ]),
     accessesDataTable: function () {
       const newArray = []
-
       const searchQ = this.search.toLowerCase()
       this.GET_ALL_HOSTS.filter((item) => {
         const currentRow = item
-
         if ((currentRow.title && currentRow.title.toLowerCase().indexOf(searchQ) !== -1) ||
             (currentRow.ftp_server && currentRow.ftp_server.toLowerCase().indexOf(searchQ) !== -1) ||
             (currentRow.host_login && currentRow.host_login.toLowerCase().indexOf(searchQ) !== -1) ||
@@ -80,12 +87,11 @@ export default {
           newArray.push(currentRow)
         }
       })
-
       return newArray
     }
   },
   components: {
-    Row
+    Row, Loader
   }
 }
 </script>

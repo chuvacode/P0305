@@ -1,23 +1,29 @@
 <template>
   <div>
-    <div class="table_access">
-      <table>
-        <thead>
-        <th>Имя пользователя</th>
-        <th>Почта</th>
-        <th>Привелегия</th>
-        <th></th>
-        </thead>
-        <tbody>
-        <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id"></row>
-        </tbody>
-      </table>
-    </div>
+<!--    <vue-custom-scrollbar class="scroll-area table_access"  :settings="settings" @ps-scroll-y="scrollHanle">-->
+      <div class="table_access">
+        <table>
+          <thead>
+            <th>Имя пользователя</th>
+            <th>Почта</th>
+            <th>Привелегия</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id"></row>
+            <tr>
+              <loader v-if="GET_IS_LOAD_PERSONAL"></loader>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--    </vue-custom-scrollbar>-->
   </div>
 </template>
 
 <script>
 import Row from '@/components/Tables/Personal/PersonalRow'
+import Loader from '@/components/Tables/Loader'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -31,6 +37,12 @@ export default {
       isVisibilityConfirmForm: false,
       confirmStatus: null,
       confirmID: null
+      // settings: {
+      //   suppressScrollY: false,
+      //   suppressScrollX: false,
+      //   wheelPropagation: false,
+      //   swicher: true
+      // }
     }
   },
   props: [
@@ -44,6 +56,9 @@ export default {
     ...mapActions([
       'GET_ALL_PERSONAL_FROM_API'
     ]),
+    scrollHanle (evt) {
+      console.log(evt)
+    },
     handleConfirmResponse (status) {
       this.isVisibilityConfirmForm = false
       if (status) {
@@ -66,7 +81,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'GET_ALL_PERSONAL'
+      'GET_ALL_PERSONAL',
+      'GET_IS_LOAD_PERSONAL'
     ]),
     accessesDataTable: function () {
       const newArray = []
@@ -87,11 +103,10 @@ export default {
     }
   },
   components: {
-    Row
+    Row, Loader
   }
 }
 </script>
 
 <style scoped>
-
 </style>

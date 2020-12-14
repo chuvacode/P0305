@@ -1,5 +1,5 @@
 <template>
-    <nav class="nav_sidebar" @click="checkCurrentPage" :class="{hide:!sideBarVisibility}">
+    <nav class="nav_sidebar" @click="checkCurrentPage" :class="{hide:!GET_SIDEBAR_IS_VISIBILITY}">
         <div class="nav_sidebar_menu">
             <ul>
                   <item-menu v-for="(body, title) in getMenuItems()" :key="title" :title="title" :body="body" :menu="menu"></item-menu>
@@ -11,29 +11,19 @@
 <script>
 import route from '@/router/route'
 import ItemMenu from './ItemMenu'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'Sidebar',
   data () {
     return {
       activeMenuItem: null,
-      menu: null,
-      sideBarVisibility: localStorage.isOpenSidebar === 'open'
+      menu: null
     }
   },
   mounted () {
   },
   created () {
-    // if (localStorage.getItem('menu') == null) {
-    //     this.axios
-    //         .get(route('get-menu'))
-    //         .then(response => {
-    //             this.menu = response.data;
-    //             localStorage.setItem('menu', JSON.stringify(this.menu));
-    //         });
-    // } else {
-    //     this.menu = JSON.parse(localStorage.getItem('menu'));
-    // }
     this.menu = {
       Доступы: {
         type: 'category',
@@ -63,17 +53,22 @@ export default {
       // }
     }
   },
-  computed: { },
+  computed: {
+    ...mapGetters([
+      'GET_SIDEBAR_IS_VISIBILITY'
+    ])
+  },
   methods: {
+    ...mapActions([
+      'TOGGLE_SIDEBAR'
+    ]),
     getMenuItems () {
       const items = {}
-
       for (const title in this.menu) {
         if (this.menu[title].type !== 'child') {
           items[title] = this.menu[title]
         }
       }
-
       return items
     },
     setActiveMenuItem (key) {
@@ -91,24 +86,10 @@ export default {
           if (window.location.href === childs[key].url) return true
         }
       }
-
       return window.location.href === url
     },
-    /* cdcheckCurrentItem () {
-      if (childs !== []) {
-        for (const key in childs) {
-          if (window.location.href === childs[key].url) return true
-        }
-      }
-
-      return window.location.href === url
-    }, */
     toggleMenuItem (key) {
       this.menu[key].open = !this.menu[key].open
-    },
-    toggleSidebar () {
-      this.sideBarVisibility = !this.sideBarVisibility
-      this.$emit('close', this.sideBarVisibility ? 280 : 80)
     }
   },
   components: {

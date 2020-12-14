@@ -48,6 +48,10 @@
   //padding: 0 10px!important;
 }
 
+.multiselect__input, .multiselect__single {
+  line-height: 24px;
+}
+
 input.multiselect__input:focus
 {
   //outline: none;

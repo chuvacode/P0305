@@ -47,5 +47,6 @@
     "personal.show": "http://api.p0305.loc:80/api\/dashboard\/personal\/{personal}",
     "personal.edit": "http://api.p0305.loc:80/api\/dashboard\/personal\/{personal}\/edit",
     "personal.update": "http://api.p0305.loc:80/api\/dashboard\/personal\/{personal}",
-    "personal.destroy": "http://api.p0305.loc:80/api\/dashboard\/personal\/{personal}"
+    "personal.destroy": "http://api.p0305.loc:80/api\/dashboard\/personal\/{personal}",
+    "accesses.export": "http://api.p0305.loc:80/api\/dashboard\/host\/export"
 }

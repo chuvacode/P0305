@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+//Route::get('/dashboard/host/export', 'API\Dashboard\Accesses\HostsController@export');
+
+Route::get('/dashboard/host/export-link', 'API\Dashboard\Accesses\ExportController@export')->name('all-export');
 Route::middleware('auth:api')->group(function () {
     // Auth
     Route::post('/logout', 'API\Security\AuthController@logout');
@@ -28,6 +31,8 @@ Route::middleware('auth:api')->group(function () {
     // Dashboard
     Route::group(['prefix' => 'dashboard', 'namespace' => 'API\Dashboard\\'], function () { // 'middleware' => ['cors']
         // Хостинги
+
+        Route::get('host/export', 'Accesses\ExportController@getDownloadExport');
         Route::resource('host', 'Accesses\HostsController');
 
         // Сайты
@@ -49,7 +54,10 @@ Route::middleware('auth:api')->group(function () {
 // Auth
 Route::post('/register', 'API\Security\AuthController@register');
 Route::post('/login', 'API\Security\AuthController@login');
+Route::post('/login', 'API\Security\AuthController@login');
 Route::get('/user', 'API\Security\AuthController@index');
+
+
 
 
 

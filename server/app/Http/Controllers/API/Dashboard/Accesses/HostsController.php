@@ -7,9 +7,11 @@ use App\Http\Traits\Crypter;
 use App\Http\Traits\ResponseJSON;
 use App\Models\AccessHost;
 use App\Models\LinkSiteToHost;
+use http\QueryString;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Console\Input\Input;
+use PHPExcel;
 
 class HostsController extends Controller
 {
@@ -188,4 +190,5 @@ class HostsController extends Controller
 
         return $this->responseJSON(501, 'Not implemented');
     }
+
 }

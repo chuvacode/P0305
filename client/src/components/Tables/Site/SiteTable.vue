@@ -3,17 +3,20 @@
     <div class="table_access">
       <table>
         <thead>
-        <th>Наименование</th>
-        <th>Логин</th>
-        <th>Пароль</th>
-        <th>FTP сервер</th>
-        <th>Логин</th>
-        <th>Пароль</th>
-        <th>Комментарий</th>
-        <th></th>
+          <th>Наименование</th>
+          <th>Логин</th>
+          <th>Пароль</th>
+          <th>FTP сервер</th>
+          <th>Логин</th>
+          <th>Пароль</th>
+          <th>Комментарий</th>
+          <th></th>
         </thead>
         <tbody>
-        <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id"></row>
+          <row v-for="(row, id) in accessesDataTable" :key="id" :row="row" :id="id"></row>
+          <tr>
+            <loader v-if="GET_IS_LOAD_SITES"></loader>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -21,6 +24,7 @@
 </template>
 
 <script>
+import Loader from '@/components/Tables/Loader'
 import Row from '@/components/Tables/Site/SiteRow'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -70,7 +74,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'GET_ALL_SITES'
+      'GET_ALL_SITES',
+      'GET_IS_LOAD_SITES'
     ]),
     accessesDataTable: function () {
       const newArray = []
@@ -93,7 +98,7 @@ export default {
     }
   },
   components: {
-    Row
+    Row, Loader
   }
 }
 </script>

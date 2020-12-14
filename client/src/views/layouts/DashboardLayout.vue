@@ -2,13 +2,14 @@
   <div class="position-relative overflow-hidden">
     <header>
       <div class="container-fluid d-flex align-items-center px-5">
-        <span class="item_menu close_sidebar" :class="{hide: isOpenSidebar}" @click="handleToggleSidebar"><span></span></span>
+        <span class="item_menu close_sidebar" :class="{hide: GET_SIDEBAR_IS_VISIBILITY}" @click="TOGGLE_SIDEBAR"><span></span></span>
         <div class="cabinet d-flex align-items-center" @mouseenter="isOpenCabinetMenu = true" @mouseleave="isOpenCabinetMenu = false">
           <div class="avatar" :style="{'backgroundImage':`url('${user.avatar_url}')`}"></div>
           <span class="user_name">{{ user.name }}</span>
 
           <div v-if="isOpenCabinetMenu" class="cabinet_container_menu">
             <ul class="cabinet_menu">
+              <li @click="export_all">Экспорт доступов</li>
               <li @click="logout">Выход</li>
             </ul>
           </div>
@@ -34,6 +35,8 @@
 import Toast from '@/utils/toast/toast'
 import Sidebar from '@/components/Sidebar'
 import ConfirmForm from '@/components/Modals/ConfirmForm'
+import { mapActions, mapGetters } from 'vuex'
+import route from '../../router/route'
 
 export default {
   name: 'Dashboard',
@@ -44,15 +47,27 @@ export default {
     user: window.auth.user
   }),
   methods: {
-    handleToggleSidebar () {
-      localStorage.isOpenSidebar = localStorage.isOpenSidebar === 'open' ? 'close' : 'open'
-      this.isOpenSidebar = localStorage.isOpenSidebar === 'open'
-      // this.isOpenSidebar = !this.isOpenSidebar
-      this.$refs.sidebar.toggleSidebar()
-    },
+    ...mapActions([
+      'TOGGLE_SIDEBAR'
+    ]),
     logout () {
       window.auth.logout()
+    },
+    export_all () {
+      window.api.call('get', route('accesses.export'))
+        .then(response => {
+          window.open(response.data, '_blank')
+        })
+        // eslint-disable-next-line handle-callback-err
+        .catch(error => {
+          console.log(error)
+        })
     }
+  },
+  computed: {
+    ...mapGetters([
+      'GET_SIDEBAR_IS_VISIBILITY'
+    ])
   },
   mounted () {
     Event.$on('userLoggedIn', () => {

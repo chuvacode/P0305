@@ -2,18 +2,20 @@ import route from '@/router/route'
 
 export default {
   state: {
+    IS_LOAD_OTHERS: true,
     ALL_OTHERS: [],
     SHORT_OTHERS: []
   },
   actions: {
-    GET_SHORT_OTHERS_FROM_API (context) {
+    GET_SHORT_OTHERS_FROM_API ({ commit, state }) {
       return window.api.call('get', route('other.index'), {
         params: {
           short: true
         }
       })
         .then(response => {
-          context.commit('UPDATE_SHORT_OTHERS', response.data.data.content)
+          state.IS_LOAD_OTHERS = false
+          commit('UPDATE_SHORT_OTHERS', response.data.data.content)
         })
         // eslint-disable-next-line handle-callback-err
         .catch(error => {
@@ -59,6 +61,9 @@ export default {
     },
     UPDATE_SHORT_OTHERS (state, data) {
       state.SHORT_OTHERS = data
+    },
+    UPDATE_IS_LOAD_OTHERS (state, data) {
+      state.IS_LOAD_OTHERS = data
     }
   },
   getters: {
@@ -67,6 +72,9 @@ export default {
     },
     GET_SHORT_OTHERS (state) {
       return state.SHORT_OTHERS
+    },
+    GET_IS_LOAD_OTHERS (state, data) {
+      return state.IS_LOAD_OTHERS
     }
   }
 }

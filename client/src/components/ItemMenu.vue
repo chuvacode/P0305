@@ -12,10 +12,10 @@
             </ul>
         </template>
         <template v-else-if="body.type === 'page'">
-            <a class="item_menu"><a :href="body.url">{{ title }}</a></a>
+            <a class="item_menu" :href="body.url">{{ title }}</a>
         </template>
       <template v-else-if="body.type === 'child'">
-        <a class="item_menu"><span :href="body.url">{{ title }}</span></a>
+        <a class="item_menu" :href="body.url"><span>{{ title }}</span></a>
       </template>
     </router-link>
 </template>

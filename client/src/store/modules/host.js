@@ -3,32 +3,42 @@ import route from '@/router/route'
 
 export default {
   state: {
+    IS_LOAD_HOSTS: true,
     ALL_HOSTS: [],
     SHORT_HOSTS: []
   },
   actions: {
-    GET_SHORT_HOSTS_FROM_API (context) {
+    GET_SHORT_HOSTS_FROM_API ({ commit, state }) {
       return window.api.call('get', route('host.index'), {
         params: {
           short: true
         }
       })
         .then(response => {
-          context.commit('UPDATE_SHORT_HOSTS', response.data.data.content)
+          commit('UPDATE_SHORT_HOSTS', response.data.data.content)
         })
         // eslint-disable-next-line handle-callback-err
         .catch(error => {
           window.newToast('Сервер не отвечает', 'error', 5)
         })
     },
-    GET_ALL_HOSTS_FROM_API ({ commit }) {
+    GET_ALL_HOSTS_FROM_API ({ commit, state }) {
       return window.api.call('get', route('host.index'))
         .then(response => {
+          state.IS_LOAD_HOSTS = false
           commit('UPDATE_ALL_HOSTS', response.data.data.content)
         })
         // eslint-disable-next-line handle-callback-err
         .catch(error => {
-          window.newToast('Сервер не отвечает', 'error', 5)
+          switch (error.message) {
+            case 'Network Error':
+              window.newToast('Сервер не отвечает', 'error', 5)
+              break
+            default:
+              window.newToast('Не обработанная ошибка', 'error', 5)
+              break
+          }
+          throw error
         })
     },
     ADD_HOST ({ dispatch }, formdata) {
@@ -60,6 +70,9 @@ export default {
     },
     UPDATE_SHORT_HOSTS (state, data) {
       state.SHORT_HOSTS = data
+    },
+    UPDATE_IS_LOAD_HOSTS (state, data) {
+      state.IS_LOAD_HOSTS = data
     }
   },
   getters: {
@@ -68,6 +81,9 @@ export default {
     },
     GET_SHORT_HOSTS (state) {
       return state.SHORT_HOSTS
+    },
+    GET_IS_LOAD_HOSTS (state) {
+      return state.IS_LOAD_HOSTS
     }
   }
 }
