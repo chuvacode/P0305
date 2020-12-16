@@ -29,6 +29,8 @@ export default {
         })
     },
     DESTROY_PERSONAL_BY_ID ({ dispatch }, id) {
+      // const currnetUser = JSON.parse(localStorage.getItem('user'))
+      if (JSON.parse(localStorage.getItem('user')).id === id) return window.newToast('Невозможно удалить свой аккаунт', 'warning', 3)
       return window.api.call('delete', route('personal.destroy', [id]))
         .then(response => {
           dispatch('GET_ALL_PERSONAL_FROM_API')

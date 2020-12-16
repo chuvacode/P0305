@@ -16,6 +16,7 @@
             </tr>
           </tbody>
         </table>
+        <div class="table_access__empty" v-if="!GET_IS_LOAD_PERSONAL && GET_ALL_PERSONAL.length === 0">Записи в таблице отсутствуют.</div>
       </div>
 <!--    </vue-custom-scrollbar>-->
   </div>

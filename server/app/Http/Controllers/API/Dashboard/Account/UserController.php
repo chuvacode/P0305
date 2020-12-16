@@ -8,6 +8,7 @@ use App\Http\Traits\ResponseJSON;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -64,6 +65,7 @@ class UserController extends Controller
         }
 
         // Добавление в БД и получение добавленного экземпляра
+        $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
 
         return $this->responseJSON(201, 'Created');
@@ -141,8 +143,14 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
+        if (!$user = User::find($id))
+            return $this->responseJSON(404, 'Not found');
+
+        if ($user->delete())
+            return $this->responseJSON(204, 'Success destroy');
+
+        return $this->responseJSON(501, 'Not implemented');
     }
 }

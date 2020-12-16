@@ -4,8 +4,8 @@
       <div class="container-fluid d-flex align-items-center px-5">
         <span class="item_menu close_sidebar" :class="{hide: GET_SIDEBAR_IS_VISIBILITY}" @click="TOGGLE_SIDEBAR"><span></span></span>
         <div class="cabinet d-flex align-items-center" @mouseenter="isOpenCabinetMenu = true" @mouseleave="isOpenCabinetMenu = false">
-          <div class="avatar" :style="{'backgroundImage':`url('${user.avatar_url}')`}"></div>
-          <span class="user_name">{{ user.name }}</span>
+          <div class="avatar" :style="{'backgroundImage':`url('${GET_LOGINED_AVATAR_URL}')`}"></div>
+          <span class="user_name">{{ GET_LOGINED_USERNAME }}</span>
 
           <div v-if="isOpenCabinetMenu" class="cabinet_container_menu">
             <ul class="cabinet_menu">
@@ -66,7 +66,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'GET_SIDEBAR_IS_VISIBILITY'
+      'GET_SIDEBAR_IS_VISIBILITY',
+      'GET_LOGINED_USERNAME',
+      'GET_LOGINED_AVATAR_URL'
     ])
   },
   mounted () {

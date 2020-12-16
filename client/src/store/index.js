@@ -5,6 +5,7 @@ import site from '@/store/modules/site'
 import other from '@/store/modules/other'
 import personal from '@/store/modules/personal'
 import sidebar from '@/store/modules/sidebar'
+import user from '@/store/modules/user'
 // eslint-disable-next-line camelcase
 import personal_edit_form from '@/store/modules/personal_edit_form'
 import auth from '@/store/modules/auth'
@@ -15,6 +16,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    host, site, other, confirm_form, personal, auth, personal_edit_form, sidebar
+    host, site, other, confirm_form, personal, auth, personal_edit_form, sidebar, user
   }
 })

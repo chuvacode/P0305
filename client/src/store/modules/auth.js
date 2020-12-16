@@ -7,15 +7,9 @@ export default {
     password: null,
     users: null,
     avatar_url: null
-    // current_view_user: {
-    //   id: null,
-    //   name: null,
-    //   email: null,
-    //   avatar_url: null
-    // }
   },
   actions: {
-    LOGIN ({ state }) {
+    LOGIN ({ state, commit }) {
       if (state.email === '' || state.email === null ||
         state.password === '' || state.password === null) return window.newToast('Заполните все поля', 'warning')
       const formData = new FormData()
@@ -26,6 +20,9 @@ export default {
         window.api.call('post', route('api.login'), formData)
           .then(({ data }) => {
             window.auth.login(data.data.token, data.data.user)
+            commit('UPDATE_LOGINED_EMAIL', state.email)
+            commit('UPDATE_LOGINED_AVATAR_URL', state.avatar_url)
+            commit('UPDATE_LOGINED_USERNAME', state.username)
             resolve(resolve)
           })
           // eslint-disable-next-line handle-callback-err

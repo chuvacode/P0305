@@ -19,6 +19,7 @@
           </tr>
         </tbody>
       </table>
+      <div class="table_access__empty" v-if="!GET_IS_LOAD_HOSTS && GET_ALL_HOSTS.length === 0">Записи в таблице отсутствуют.</div>
     </div>
   </div>
 </template>
@@ -43,7 +44,7 @@ export default {
   props: [
     'search'
   ],
-  async mounted () {
+  mounted () {
     // Получение данных для таблицы
     this.GET_ALL_HOSTS_FROM_API()
   },

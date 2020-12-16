@@ -15,6 +15,8 @@
 <script>
 import Cell from '@/components/Tables/Cell'
 import route from '@/router/route'
+import { mapActions } from 'vuex'
+// import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'OtherRow',
@@ -29,8 +31,14 @@ export default {
     'row'
   ],
   methods: {
+    ...mapActions([
+      'DESTROY_OTHER_BY_ID',
+      'START_CONFIRM_FORM'
+    ]),
     handleDestroy () {
-      this.$emit('confirm', this.row.id)
+      this.START_CONFIRM_FORM(() => {
+        this.DESTROY_OTHER_BY_ID(this.row.id)
+      })
       this.isContextVisibility = false
     },
     handleOverActionCell () {

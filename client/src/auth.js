@@ -6,7 +6,7 @@ import router from './router'
 class Auth {
   constructor () {
     this.token = window.localStorage.getItem('token')
-
+    console.log(window.localStorage.getItem('user'))
     const userData = window.localStorage.getItem('user')
     this.user = userData ? JSON.parse(userData) : null
 
@@ -39,7 +39,7 @@ class Auth {
   }
 
   check () {
-    return !!this.token
+    return this.token !== null && this.user !== null
   }
 
   getUser () {

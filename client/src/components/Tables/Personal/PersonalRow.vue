@@ -35,10 +35,10 @@ export default {
     ...mapActions([
       'START_CONFIRM_FORM',
       'START_PERSONAL_EDIT_FORM',
-      'DESTROY_SITE_BY_ID'
+      'DESTROY_PERSONAL_BY_ID'
     ]),
     handleDestroy () {
-      this.START_CONFIRM_FORM(() => { return this.DESTROY_SITE_BY_ID(this.row.id) })
+      this.START_CONFIRM_FORM(() => { return this.DESTROY_PERSONAL_BY_ID(this.row.id) })
       this.isContextVisibility = false
     },
     handleOverActionCell () {
