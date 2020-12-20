@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from '../store'
 import VueRouter from 'vue-router'
 import route from './route'
 
@@ -8,7 +9,7 @@ const routes = [
   { // Авторизация
     path: '/login',
     name: 'login',
-    meta: { layout: 'empty' },
+    meta: { layout: 'empty', isPageLogin: true },
     component: () => import('../views/auth/Login')
   },
   { // Главная
@@ -100,17 +101,31 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.middlewareAuth)) {
-    if (!window.auth.check()) {
+  if (to.matched.some(record => record.meta.isPageLogin)) {
+    if (window.localStorage.getItem('token')) {
       next({
-        path: '/login',
+        path: '/dashboard',
         query: { redirect: to.fullPath }
       })
-
-      return
     }
   }
-
+  if (to.matched.some(record => record.meta.middlewareAuth)) {
+    store.dispatch('CHECK_AUTH')
+      .then(authCheck => {
+        if (!authCheck) {
+          next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+          })
+        }
+      })
+      .catch(() => {
+        next({
+          path: '/login',
+          query: { redirect: to.fullPath }
+        })
+      })
+  }
   next()
 })
 

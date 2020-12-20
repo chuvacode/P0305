@@ -1,3 +1,4 @@
+// import store from './store'
 class Api {
   call (requestType, url, data = null) {
     return new Promise((resolve, reject) => {
@@ -7,8 +8,8 @@ class Api {
         })
         .catch(response => {
           if (response.status === 401) {
-            window.auth.logout()
-            return
+            // store.dispatch('LOGOUT')
+            // return
           }
           reject(response)
         })

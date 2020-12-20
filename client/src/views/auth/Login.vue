@@ -11,7 +11,7 @@
         </div>
       </template>
       <template v-else>
-        <input class="invisibly" type="text" v-model.trim="email" placeholder="Введите email" list="datalist_users" @focusout="edit_username = false" @keyup.enter="edit_username = false" v-focus-if-not-empty>
+        <input class="invisibly" type="text" v-model.trim="email" placeholder="Введите email" list="datalist_users" @focusout="handleFocusOutUsername" @keyup.enter="edit_username = false" > <!--v-focus-if-not-empty-->
         <datalist id="datalist_users">
           <option v-for="user in GET_ALL_USERS" :value="user.email" :key="user.id" />
         </datalist>
@@ -34,10 +34,9 @@ export default {
   mounted () {
     this.GET_ALL_USERS_FROM_API().then(response => {
       this.UPDATE_VIEW_USER_BY_ID(0)
+      console.log(this.email)
+      this.edit_username = this.email === null
     })
-    if (window.auth.check()) {
-      this.$router.push('/dashboard')
-    }
   },
   data: () => ({
     edit_username: false
@@ -78,28 +77,12 @@ export default {
     handleEditUsername () {
       this.edit_username = true
     },
+    handleFocusOutUsername () {
+      this.edit_username = this.GET_USERNAME === null
+    },
     handleLogin () {
       this.LOGIN()
-        .then((data) => {
-          this.$router.push('/dashboard')
-        })
     }
-    // login () {
-    //   if (this.email === '' || this.password === '') return
-    //
-    //   const formData = new FormData()
-    //   formData.append('username', this.email)
-    //   formData.append('password', this.password)
-    //
-    //   this.axios.post(route('api.login'), formData)
-    //     .then(({ data }) => {
-    //       window.auth.login(data.data.token, data.data.user)
-    //       this.$router.push('/dashboard')
-    //     })
-    //     .catch(({ response }) => {
-    //       alert(response.data.message)
-    //     })
-    // },
   }
 }
 </script>

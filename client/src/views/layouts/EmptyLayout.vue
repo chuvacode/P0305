@@ -10,15 +10,8 @@ import Toast from '@/utils/toast/toast'
 
 export default {
   name: 'Empty',
-  data: () => ({
-    authenticated: window.auth.check(),
-    user: window.auth.user
-  }),
   mounted () {
-    Event.$on('userLoggedIn', () => {
-      this.authenticated = true
-      this.user = window.auth.user
-    })
+    // console.log('DD123')
   },
   components: {
     Toast

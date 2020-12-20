@@ -21,10 +21,12 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/dashboard/host/export', 'API\Dashboard\Accesses\HostsController@export');
 
 Route::get('/dashboard/host/export-link', 'API\Dashboard\Accesses\ExportController@export')->name('all-export');
+
 Route::middleware('auth:api')->group(function () {
     // Auth
     Route::post('/logout', 'API\Security\AuthController@logout');
     Route::get('/get-user', 'API\Security\AuthController@getUser');
+//    Route::get('/check-auth', 'API\Security\AuthController@checkAuth');
 
     Route::get('/get-menu', 'Dashboard\IndexController@getMenu')->name('get-menu');
 

@@ -7,7 +7,7 @@ use App\Http\Traits\ResponseJSON;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Hash;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -167,6 +167,13 @@ class AuthController extends Controller
     public function getUser() {
         return auth()->user();
     }
+//
+//    public function checkAuth() {
+//        dd(auth()->user());
+//        if (auth()->user() != null)
+//            return $this->responseJSON(200, 'AUTH');
+//        return $this->responseJSON(200, 'NOT AUTH');
+//    }
 
     public function index(Request $request) {
         $users = User::select(['id', 'name', 'email', 'avatar_url'])->get();

@@ -4,8 +4,8 @@
       <div class="container-fluid d-flex align-items-center px-5">
         <span class="item_menu close_sidebar" :class="{hide: GET_SIDEBAR_IS_VISIBILITY}" @click="TOGGLE_SIDEBAR"><span></span></span>
         <div class="cabinet d-flex align-items-center" @mouseenter="isOpenCabinetMenu = true" @mouseleave="isOpenCabinetMenu = false">
-          <div class="avatar" :style="{'backgroundImage':`url('${GET_LOGINED_AVATAR_URL}')`}"></div>
-          <span class="user_name">{{ GET_LOGINED_USERNAME }}</span>
+          <div class="avatar" :style="{'backgroundImage':`url('${GET_AUTHORIZED_AVATAR_URL}')`}"></div>
+          <span class="user_name">{{ GET_AUTHORIZED_USERNAME }}</span>
 
           <div v-if="isOpenCabinetMenu" class="cabinet_container_menu">
             <ul class="cabinet_menu">
@@ -42,16 +42,18 @@ export default {
   name: 'Dashboard',
   data: () => ({
     isOpenCabinetMenu: false,
-    isOpenSidebar: localStorage.isOpenSidebar === 'open',
-    authenticated: window.auth.check(),
-    user: window.auth.user
+    isOpenSidebar: localStorage.isOpenSidebar === 'open'
+    // authenticated: window.auth.check(),
+    // user: window.auth.user
   }),
   methods: {
     ...mapActions([
-      'TOGGLE_SIDEBAR'
+      'TOGGLE_SIDEBAR',
+      'CHECK_AUTH',
+      'LOGOUT'
     ]),
     logout () {
-      window.auth.logout()
+      this.LOGOUT()
     },
     export_all () {
       window.api.call('get', route('accesses.export'))
@@ -67,15 +69,12 @@ export default {
   computed: {
     ...mapGetters([
       'GET_SIDEBAR_IS_VISIBILITY',
-      'GET_LOGINED_USERNAME',
-      'GET_LOGINED_AVATAR_URL'
+      'GET_AUTHORIZED_USERNAME',
+      'GET_AUTHORIZED_AVATAR_URL'
     ])
   },
   mounted () {
-    Event.$on('userLoggedIn', () => {
-      this.authenticated = true
-      this.user = window.auth.user
-    })
+    this.CHECK_AUTH()
   },
   components: {
     Sidebar, Toast, ConfirmForm
