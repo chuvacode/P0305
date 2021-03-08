@@ -45,7 +45,8 @@ export default {
       },
       'Управление персоналом': {
         type: 'page',
-        url: route('dashboard.personal')
+        url: route('dashboard.personal'),
+        privilege: 'administrator'
       }
       // Отчеты: {
       //   type: 'page',
@@ -65,6 +66,12 @@ export default {
     getMenuItems () {
       const items = {}
       for (const title in this.menu) {
+        if (this.menu[title].privilege) {
+          const userdata = JSON.parse(localStorage.getItem('user'))
+          if (userdata.privilege === 'administrator') {
+            items[title] = this.menu[title]
+          }
+        } else
         if (this.menu[title].type !== 'child') {
           items[title] = this.menu[title]
         }

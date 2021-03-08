@@ -2,8 +2,40 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="28cfb3bd-fcfc-478e-abc6-0bfc33628967" name="1" url="http://timax2001.myjino.ru">
+      <webServer id="28cfb3bd-fcfc-478e-abc6-0bfc33628967" name="Jino Timax" url="http://timax2001.myjino.ru">
         <fileTransfer host="timax2001.myjino.ru" port="21" rootFolder="/domains/superliga.ko4ki.ru">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="e7889f4e-bf37-422d-a672-c3ae76b9bedf" name="jino Egor" url="http://kulik-egor0.myjino.ru">
+        <fileTransfer host="kulik-egor0.myjino.ru" port="21" rootFolder="/xn----7sbbbmghav3arfl0br0a1c1g.xn--p1ai">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="d26bb5fa-fc83-42f9-b973-37b67fe44d5e" name="spectr ubnvrsk-rzd.ru" url="http://ubnvrsk-rzd.ru">
+        <fileTransfer host="ubnvrsk-rzd.ru" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="5437aacc-2def-480a-8cf4-d999f08b72cb" name="x-style-lazer.ru" url="http://cpanel12.coopertino.ru">
+        <fileTransfer host="cpanel12.coopertino.ru" port="21" rootFolder="/x-style-lazer.ru">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="e2afce2c-0e23-4422-be67-9aaf9133692d" name="RVP" url="http://pvl9n.spectrum.myjino.ru">
+        <fileTransfer host="pvl9n.spectrum.myjino.ru" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

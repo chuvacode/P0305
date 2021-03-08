@@ -52,6 +52,17 @@ class AuthController extends Controller
         // Извлекаем данные
         $data = $request->all();
 
+        if (!isset($data['username'])) {
+            return $this->responseJSON(422, 'Unprocessable Entity', [
+                'message' => 'Not found username',
+            ]);
+        }
+        if (!isset($data['password'])) {
+            return $this->responseJSON(422, 'Unprocessable Entity', [
+                'message' => 'Not found password',
+            ]);
+        }
+
         // Проверяем существует ли пользователь с указанным email адресом
         $user = User::whereEmail($data['username'])->first();
 
@@ -165,7 +176,20 @@ class AuthController extends Controller
     }
 
     public function getUser() {
-        return auth()->user();
+        // Проверяем существует ли пользователь с указанным email адресом
+        $user = auth()->user();
+
+        if (!$user) {
+            return $this->responseJSON(422, 'Unprocessable Entity', [
+                'message' => 'Wrong email or password',
+            ]);
+        }
+
+        // Формируем окончательный ответ в нужном формате
+        return $this->responseJSON(200, 'Success', [
+            'user' => $user
+        ]);
+
     }
 //
 //    public function checkAuth() {

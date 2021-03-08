@@ -15,16 +15,16 @@ export default {
   },
   actions: {
     CHECK_AUTH ({ getters, dispatch, commit }) {
-      // Not found API TOKEN
       if (window.localStorage.getItem('token') === null) router.push('/login')
+      // Not found API TOKEN
+      window.axios.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage.getItem('token')
       // Not found USER DATA
       const isGetData = window.localStorage.getItem('user') === null
-      window.axios.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage.getItem('token')
       return new Promise((resolve) => {
         window.api.call('get', route('api.get-user'))
           .then(({ data }) => {
             if (isGetData) {
-              window.localStorage.setItem('user', JSON.stringify(data))
+              window.localStorage.setItem('user', JSON.stringify(data.data.user))
             }
             commit('UPDATE_AUTHORIZED_USERNAME')
             commit('UPDATE_AUTHORIZED_AVATAR_URL')
